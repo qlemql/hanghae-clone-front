@@ -1,14 +1,34 @@
 import React from "react";
+import { useState } from "react";
+import Modal from "../components/Modal";
 
 function Post(props) {
+  const [isShowing, setIsShowing] = useState(false);
+  const openModal = () => {
+    setIsShowing(true);
+  };
+
+  const closeModal = () => {
+    setIsShowing(false);
+  };
+
   return (
     <>
-    {/* 유저 정보 */}
+      {/* 유저 정보 */}
       <header>
         <div>
-          <button>
+          <button onClick={openModal}>
             <img src="" alt="" />
           </button>
+          <div>
+            {isShowing && (
+              <Modal
+                open={openModal}
+                close={closeModal}
+                header="Moadl heading"
+              />
+            )}
+          </div>
         </div>
         <section>
           <div>
@@ -31,7 +51,7 @@ function Post(props) {
           </div>
         </section>
       </header>
-    {/* 서브 메뉴 */}
+      {/* 서브 메뉴 */}
       <div>
         <a href="/">
           <span>
@@ -58,21 +78,19 @@ function Post(props) {
           </span>
         </a>
       </div>
-    {/* 게시글 */}
-      <div>
-        <a href="/">
-          <div>
-            <img src="" alt="" />
-          </div>
-          <div>
-            <li>
-              <span>15</span>
-            </li>
-            <li>
-              <span>0</span>
-            </li>
-          </div>
-        </a>
+      {/* 게시글 */}
+      <div onClick={openModal}>
+        <div>
+          <img src="" alt="" />
+        </div>
+        <div>
+          <li>
+            <span>15</span>
+          </li>
+          <li>
+            <span>0</span>
+          </li>
+        </div>
       </div>
     </>
   );
