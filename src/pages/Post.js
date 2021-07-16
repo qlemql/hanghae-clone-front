@@ -3,6 +3,7 @@ import React from "react";
 function Post(props) {
   return (
     <>
+    {/* 유저 정보 */}
       <header>
         <div>
           <button>
@@ -30,7 +31,7 @@ function Post(props) {
           </div>
         </section>
       </header>
-
+    {/* 서브 메뉴 */}
       <div>
         <a href="/">
           <span>
@@ -57,15 +58,35 @@ function Post(props) {
           </span>
         </a>
       </div>
+    {/* 게시글 */}
       <div>
         <a href="/">
           <div>
             <img src="" alt="" />
+          </div>
+          <div>
+            <li>
+              <span>15</span>
+            </li>
+            <li>
+              <span>0</span>
+            </li>
           </div>
         </a>
       </div>
     </>
   );
 }
+
+Post.defaultProps = {
+  user_info: {
+    user_name: "TaeHyun",
+    user_profile: "",
+    user_nickname: "altere_",
+  },
+  image_url: "",
+  contents: "안녕하세요",
+  comments: "좋아요!",
+};
 
 export default Post;
