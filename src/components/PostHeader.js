@@ -20,6 +20,7 @@ function PostHeader(props) {
         <Btn onClick={openModal}>
           <Img src={props.user_info.user_img} />
         </Btn>
+        {/* modal 수정해야함 */}
         <div>
           {isShowing && (
             <Modal open={openModal} close={closeModal} header="Moadl heading" />
