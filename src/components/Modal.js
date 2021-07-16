@@ -6,13 +6,14 @@ function Modal(props) {
   return (
     <>
       <div className={open ? "openModal modal" : "modal"}>
-        <button className="close" onClick={close}>
-          X
-        </button>
         {open ? (
           <section>
-            {header}
-
+            <header>
+              {header}
+              <button className="close" onClick={close}>
+                X
+              </button>
+            </header>
             <main>{props.children}</main>
             <footer>
               <button className="close" onClick={close}>
