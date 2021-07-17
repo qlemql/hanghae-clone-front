@@ -14,49 +14,56 @@ function PostHeader(props) {
         setIsShowing(false);
     };
 
-    return (
-        <>
-            <Header>
-                <Btn onClick={openModal}>
-                    {/*<Img src={props.user_info.user_img}/>*/}
-                </Btn>
-                {/* modal 수정해야함 */}
-                <div>
-                    {isShowing && (
-                        <Modal open={openModal} close={closeModal} header="Moadl heading"/>
-                    )}
-                </div>
-                <Section>
-                    <div>
-                        <h2>{props.user_info.user_nickname}</h2>
-                    </div>
-                    <UserInfo>
-                        <li>
-                            <span>게시물 240</span>
-                        </li>
-                        <li>
-                            <a href="/">팔로워 125</a>
-                        </li>
-                        <li>
-                            <a href="/">팔로우 144</a>
-                        </li>
-                    </UserInfo>
-                    <div>
-                        <h1>{props.user_info.user_name}</h1>
-                        <span>post name</span>
-                    </div>
-                </Section>
-            </Header>
-        </>
-    );
+  return (
+    <>
+      <Header>
+        <Btn onClick={openModal}>
+          <Img src={props.user_info.user_img} />
+        </Btn>
+        {/* modal 수정해야함 */}
+        <div>
+          {isShowing && (
+            <Modal
+              open={openModal}
+              close={closeModal}
+              header="프로필 사진 바꾸기"
+            />
+          )}
+        </div>
+        <Section>
+          <div>
+            <h2>{props.user_info.user_nickname}</h2>
+          </div>
+          <UserInfo>
+            <li>
+              <span>게시물 {props.user_info.user_contents}</span>
+            </li>
+            <li>
+              <a href="/">팔로워 {props.user_info.user_follower}</a>
+            </li>
+            <li>
+              <a href="/">팔로우 {props.user_info.user_follow}</a>
+            </li>
+          </UserInfo>
+          <div>
+            <h1>{props.user_info.user_name}</h1>
+            <span>post name</span>
+          </div>
+        </Section>
+      </Header>
+    </>
+  );
 }
 
 PostHeader.defaultProps = {
-    user_info: {
-        user_name: "TaeHyun",
-        user_nickname: "altere_",
-        // user_img: require("../assets/images/profile.jpg").default,
-    },
+  user_info: {
+    user_name: "TaeHyun",
+    user_nickname: "altere_",
+    user_img: require("../assets/images/profile.jpg").default,
+    user_contents: 240,
+    user_follow: 125,
+    user_follower: 144,
+  },
 };
 
 const Header = styled.div`
