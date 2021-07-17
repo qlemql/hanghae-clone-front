@@ -1,15 +1,17 @@
+import { ConnectedRouter } from "connected-react-router";
 import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
+import { history } from "../redux/configStore";
 import Header from "../components/Header";
 import PostList from "../pages/PostList";
 
 const App = () => {
   return (
     <>
-      <BrowserRouter>
-        <Route path="/" exact component={Header} />
+      <ConnectedRouter history={history}>
+        <Header />
         <Route path="/" exact component={PostList} />
-      </BrowserRouter>
+      </ConnectedRouter>
     </>
   );
 };
