@@ -16,7 +16,7 @@ const initialState = {
 // thunk
 const getPostDB = (name, img) => {
   return function (dispatch, getState, { history }) {
-    axios.get("http://localhost:3001/posts").then((res) => {
+    axios.get("http://15.165.18.118/posts").then((res) => {
       console.log(res.data);
       dispatch(getPost(res.data));
     });
