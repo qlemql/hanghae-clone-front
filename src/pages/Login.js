@@ -8,7 +8,6 @@ const Login = (props) => {
         <React.Fragment>
             <div id="wrapper">
                 <div className="container">
-                    <div className="phone-app-demo"></div>
                     <div className="form-data">
                         <form action="">
                             <div className="logo">
@@ -54,7 +53,6 @@ const Login = (props) => {
                 </div>
                 <Footer/>
             </div>
-
         </React.Fragment>
     );
 };

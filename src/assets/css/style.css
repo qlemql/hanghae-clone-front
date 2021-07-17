@@ -55,6 +55,7 @@ body {
     width: 100%;
     max-width: 35rem;
     margin-top: 3rem;
+    margin: auto;
 }
 
 .form-data form {
