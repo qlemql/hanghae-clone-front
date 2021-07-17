@@ -29,12 +29,36 @@ function ModalTwo(props) {
                     <img src={props.user_info.user_img} alt="user_profile" />
                     <div>
                       <div>{props.user_info.user_nickname}</div>
+                      <div>17주 전</div>
                     </div>
+                    <div>안녕하세요 테스트입니다.</div>
                   </div>
                 </div>
-                <div>asd</div>
-                <div>asd</div>
-                <input />
+                <div>
+                  <div>
+                    <img src={props.user_info.user_img} alt="user_profile" />
+                    <div>
+                      <div>{props.user_info.user_nickname}</div>
+                      <div>17주 전</div>
+                    </div>
+                    <div>안녕하세요 테스트입니다.</div>
+                    <div>♡</div>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <div>좋아요 댓글 DM 아이콘</div>
+                    <div>저장아이콘</div>
+                  </div>
+                  <div>ㅇㅇ님 외 x명이 좋아합니다</div>
+                  <div>time zone</div>
+                </div>
+                <div>
+                  <input placeholder="댓글 달기..." />
+                  <button style={{ color: "black", fontSize: "12px" }}>
+                    게시
+                  </button>
+                </div>
               </div>
             </section>
           </>

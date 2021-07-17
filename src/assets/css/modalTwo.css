@@ -51,13 +51,14 @@
   border-bottom: 1px solid rgba(var(--ce3, 239, 239, 239), 1);
 }
 
+/* 게시글 유저 정보 */
 .modal > section > div > div:nth-child(1) > div {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   width: auto;
 }
-
+/* 유저 이미지 */
 .modal > section > div > div:nth-child(1) > div > img {
   width: 11%;
   height: 50%;
@@ -69,21 +70,21 @@
 .modal > section > div > div:nth-child(1) > div > div > div {
   font-size: 12px;
 }
-
+/* 유저 닉네임 */
 .modal > section > div > div:nth-child(1) > div > div > div:nth-child(1) {
   font-weight: bold;
 }
 
+/* 설정 ... 창 */
 .modal > section > div > div:nth-child(1) > div:nth-child(2) {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: auto;
   font-size: 24px;
   padding-bottom: 10px;
   margin-right: 10px;
 }
-
+/* 유저 코멘트 */
 .modal > section > div > div:nth-child(2) {
   width: 100%;
   height: 70px;
@@ -96,7 +97,7 @@
   height: 100%;
   display: flex;
 }
-
+/* 유저 코멘트 프로필 이미지 */
 .modal > section > div > div:nth-child(2) > div > img {
   width: 11%;
   height: 50%;
@@ -104,10 +105,51 @@
   margin-right: 20px;
   margin-left: 10px;
 }
+/* time */
+.modal > section > div > div:nth-child(2) > div > div > div:nth-child(2) {
+  margin-top: 10px;
+  font-size: 12px;
+}
+/* 코멘트 */
+.modal > section > div > div:nth-child(2) > div > div:nth-child(3) {
+  padding-left: 5px;
+}
 
+/* 다른 유저 코멘트 */
 .modal > section > div > div:nth-child(3) {
   width: 100%;
-  height: auto;
+  height: 70px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.modal > section > div > div:nth-child(3) > div {
+  height: 100%;
+  display: flex;
+}
+/* 다른 유저 프로필이미지 */
+.modal > section > div > div:nth-child(3) > div > img {
+  width: 11%;
+  height: 50%;
+  border-radius: 50%;
+  margin-right: 20px;
+  margin-left: 10px;
+}
+
+/* time */
+.modal > section > div > div:nth-child(3) > div > div > div:nth-child(2) {
+  margin-top: 10px;
+  font-size: 12px;
+}
+/* heart */
+.modal > section > div > div:nth-child(3) > div > div:nth-child(4) {
+  padding-left: 15px;
+}
+/* 좋아요 / 댓글 / DM / 저장 아이콘*/
+.modal > section > div > div:nth-child(4) > div {
+  height: 100%;
+  display: flex;
 }
 
 .modal.openModal {
