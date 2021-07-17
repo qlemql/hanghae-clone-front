@@ -10,10 +10,18 @@
         "nickname": "nick",
         "password": "12345678"
     },
-    "posts": {
-        "postId": "2",
-        "image": "xxx.jpg",
-        "content": "instagram clone",
-        "createdAt": "2021 ..." 
-    }
+    "posts": [
+        {
+            "postId": "2",
+            "image": "xxx.jpg",
+            "content": "instagram clone",
+            "createdAt": "2021 ..." 
+        },
+        {
+            "postId": "3",
+            "image": "xxx.jpg",
+            "content": "instagram clone",
+            "createdAt": "2021 ..." 
+        }
+    ]
   }
