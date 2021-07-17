@@ -23,7 +23,11 @@ function PostHeader(props) {
         {/* modal 수정해야함 */}
         <div>
           {isShowing && (
-            <Modal open={openModal} close={closeModal} header="Moadl heading" />
+            <Modal
+              open={openModal}
+              close={closeModal}
+              header="프로필 사진 바꾸기"
+            />
           )}
         </div>
         <Section>

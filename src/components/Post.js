@@ -1,7 +1,19 @@
 import React from "react";
+import styled from "styled-components";
 import PostHeader from "./PostHeader";
+import { useState } from "react";
+import ModalTwo from "./ModalTwo";
 
 function Post(props) {
+  const [isShowing, setIsShowing] = useState(false);
+
+  const openModal = () => {
+    setIsShowing(true);
+  };
+
+  const closeModal = () => {
+    setIsShowing(false);
+  };
   return (
     <>
       {/* 유저 정보 */}
@@ -34,9 +46,9 @@ function Post(props) {
         </a>
       </div>
       {/* 게시글 */}
-      <div>
+      <Card onClick={openModal}>
         <div>
-          <img src="" alt="" />
+          <img src={props.image_url} alt="" />
         </div>
         <div>
           <li>
@@ -46,15 +58,25 @@ function Post(props) {
             <span>0</span>
           </li>
         </div>
-      </div>
+      </Card>
+      <div>{isShowing && <ModalTwo open={openModal} close={closeModal} />}</div>
     </>
   );
 }
 
 Post.defaultProps = {
-  image_url: "",
+  image_url: require("../assets/images/content.jpg").default,
   contents: "안녕하세요",
   comments: "좋아요!",
 };
+
+const Card = styled.div`
+  width: 300px;
+  height: 300px;
+  img {
+    width: 300px;
+    height: 300px;
+  }
+`;
 
 export default Post;
