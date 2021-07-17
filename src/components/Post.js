@@ -1,5 +1,5 @@
 import React from "react";
-import PostHeader from "../components/PostHeader";
+import PostHeader from "./PostHeader";
 
 function Post(props) {
   return (
