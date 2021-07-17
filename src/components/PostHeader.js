@@ -1,24 +1,24 @@
 import React from "react";
 import styled from "styled-components";
-import {useState} from "react";
+import { useState } from "react";
 import Modal from "./Modal";
 
 function PostHeader(props) {
-    const [isShowing, setIsShowing] = useState(false);
+  const [isShowing, setIsShowing] = useState(false);
 
-    const openModal = () => {
-        setIsShowing(true);
-    };
+  const openModal = () => {
+    setIsShowing(true);
+  };
 
-    const closeModal = () => {
-        setIsShowing(false);
-    };
+  const closeModal = () => {
+    setIsShowing(false);
+  };
 
   return (
     <>
       <Header>
         <Btn onClick={openModal}>
-          <Img src={props.user_info.user_img} />
+          {/* <Img src={props.user_info.user_img} /> */}
         </Btn>
         {/* modal 수정해야함 */}
         <div>
