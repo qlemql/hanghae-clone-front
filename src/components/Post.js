@@ -25,20 +25,20 @@ function Post(props) {
             <div>icon</div>
             <span>게시물</span>
           </span>
-        </a>
-        <a href="/">
+                </a>
+                <a href="/">
           <span>
             <div>icon</div>
             <span>동영상</span>
           </span>
-        </a>
-        <a href="/">
+                </a>
+                <a href="/">
           <span>
             <div>icon</div>
             <span>저장됨</span>
           </span>
-        </a>
-        <a href="/">
+                </a>
+                <a href="/">
           <span>
             <div>icon</div>
             <span>태그됨</span>
