@@ -181,11 +181,12 @@ footer {
 
 footer .container {
     display: flex;
-    justify-content: space-between;
-    font-weight: bold;
+    justify-content: center;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
     text-transform: uppercase;
-    font-size: 1.3rem;
-    margin-top: 0;
+    margin-top: 15px;
     flex-wrap: wrap;
 }
 
@@ -200,11 +201,11 @@ footer .container {
 }
 
 .footer-nav ul li a {
-    color: #003569;
+    color: #8e8e8e;
 }
 
 .copyright-notice {
-    color: #999999;
+    color: #8e8e8e;
 }
 
 /* MEDIA QUERIES */

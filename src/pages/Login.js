@@ -1,5 +1,5 @@
 import React from "react";
-import {Input, Button} from "../elements";
+import {Input, Button, Footer} from "../elements";
 import style from "../assets/css/style.css";
 
 
@@ -23,7 +23,7 @@ const Login = (props) => {
                                     console.log("아이디 입력!");
                                 }}
                             />
-                            
+
                             <Input
                                 type="password"
                                 placeholder="비밀번호"
@@ -31,7 +31,7 @@ const Login = (props) => {
                                     console.log("아이디 입력!");
                                 }}
                             />
-                            
+
                             <Button text="로그인"/>
 
                             <span className="has-separator">또는</span>
@@ -52,7 +52,9 @@ const Login = (props) => {
                         </div>
                     </div>
                 </div>
+                <Footer/>
             </div>
+
         </React.Fragment>
     );
 };
