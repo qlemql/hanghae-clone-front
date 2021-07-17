@@ -10,8 +10,8 @@ const App = () => {
         <BrowserRouter>
             <Route path="/" exact component={Header}/>
             <Route path="/" exact component={PostList}/>
-            <Route path="/users/" component={Login}></Route>
             <Route path="/login/" component={Login}></Route>
+            <Route path="/users/" component={Users}></Route>
         </BrowserRouter>
     );
 };

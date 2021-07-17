@@ -47,7 +47,7 @@ body {
 
 .phone-app-demo {
     height: 61.8rem;
-    /*background: url("/Users/i.d.o.s./clone-coding/hanghae-clone-front/src/assets/images/mobile-app.png") center no-repeat;*/
+    /*background: url("img/assets/mobile-app.png") center no-repeat;*/
     flex: 1;
 }
 

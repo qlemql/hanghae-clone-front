@@ -1,5 +1,5 @@
 import React from "react";
-import Input from "../elements";
+import {Input} from "../elements";
 import style from "../assets/css/style.css";
 
 
@@ -12,10 +12,26 @@ const Login = (props) => {
                     <div className="form-data">
                         <form action="">
                             <div className="logo">
-                                <img src="./assets/images/logo.png" alt="logo"/>
+                                <img src="img/logo.png" alt="logo"/>
                             </div>
-                            <input type="text" placeholder="전화번호, 사용자 이름 또는 이메일"/>
-                            <input type="password" placeholder="비밀번호"/>
+
+                            {/* INPUT ELEMENT */}
+                            <Input
+                                type="text"
+                                placeholder="전화번호, 사용자 이름 또는 이메일"
+                                _onChange={() => {
+                                    console.log("아이디 입력!");
+                                }}
+                            />
+                            
+                            <Input
+                                type="password"
+                                placeholder="비밀번호"
+                                _onChange={() => {
+                                    console.log("아이디 입력!");
+                                }}
+                            />
+
                             <button className="form-btn" type="submit">로그인</button>
                             <span className="has-separator">또는</span>
                             <a className="facebook-login">
@@ -29,23 +45,15 @@ const Login = (props) => {
                         <div className="get-the-app">
                             <span>앱을 다운로드하세요.</span>
                             <div className="badges">
-                                <img src={require('./assets/images/app-store.png')}/>
-                                <img src="./assets/images/mobile-app.png" alt="google-play badge"/>
-                                {/*<Img src={props.user_img}/>*/}
+                                <img src="img/app-store.png"/>
+                                <img src="img/google-play.png" alt="google-play badge"/>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
-
         </React.Fragment>
     );
 };
-
-// Login.defaultProps = (
-//     // user_img: require("../assets/images/profile.jpg").default,
-// )
 
 export default Login;
