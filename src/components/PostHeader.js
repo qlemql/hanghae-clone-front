@@ -1,62 +1,62 @@
 import React from "react";
 import styled from "styled-components";
-import { useState } from "react";
+import {useState} from "react";
 import Modal from "./Modal";
 
 function PostHeader(props) {
-  const [isShowing, setIsShowing] = useState(false);
+    const [isShowing, setIsShowing] = useState(false);
 
-  const openModal = () => {
-    setIsShowing(true);
-  };
+    const openModal = () => {
+        setIsShowing(true);
+    };
 
-  const closeModal = () => {
-    setIsShowing(false);
-  };
+    const closeModal = () => {
+        setIsShowing(false);
+    };
 
-  return (
-    <>
-      <Header>
-        <Btn onClick={openModal}>
-          <Img src={props.user_info.user_img} />
-        </Btn>
-        {/* modal 수정해야함 */}
-        <div>
-          {isShowing && (
-            <Modal open={openModal} close={closeModal} header="Moadl heading" />
-          )}
-        </div>
-        <Section>
-          <div>
-            <h2>{props.user_info.user_nickname}</h2>
-          </div>
-          <UserInfo>
-            <li>
-              <span>게시물 240</span>
-            </li>
-            <li>
-              <a href="/">팔로워 125</a>
-            </li>
-            <li>
-              <a href="/">팔로우 144</a>
-            </li>
-          </UserInfo>
-          <div>
-            <h1>{props.user_info.user_name}</h1>
-            <span>post name</span>
-          </div>
-        </Section>
-      </Header>
-    </>
-  );
+    return (
+        <>
+            <Header>
+                <Btn onClick={openModal}>
+                    {/*<Img src={props.user_info.user_img}/>*/}
+                </Btn>
+                {/* modal 수정해야함 */}
+                <div>
+                    {isShowing && (
+                        <Modal open={openModal} close={closeModal} header="Moadl heading"/>
+                    )}
+                </div>
+                <Section>
+                    <div>
+                        <h2>{props.user_info.user_nickname}</h2>
+                    </div>
+                    <UserInfo>
+                        <li>
+                            <span>게시물 240</span>
+                        </li>
+                        <li>
+                            <a href="/">팔로워 125</a>
+                        </li>
+                        <li>
+                            <a href="/">팔로우 144</a>
+                        </li>
+                    </UserInfo>
+                    <div>
+                        <h1>{props.user_info.user_name}</h1>
+                        <span>post name</span>
+                    </div>
+                </Section>
+            </Header>
+        </>
+    );
 }
 
 PostHeader.defaultProps = {
-  user_info: {
-    user_name: "TaeHyun",
-    user_nickname: "altere_",
-    user_img: require("../assets/images/profile.jpg").default,
-  },
+    user_info: {
+        user_name: "TaeHyun",
+        user_nickname: "altere_",
+        // user_img: require("../assets/images/profile.jpg").default,
+    },
 };
 
 const Header = styled.div`
