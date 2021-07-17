@@ -1,5 +1,5 @@
 import React from "react";
-import {Input} from "../elements";
+import {Input, Button} from "../elements";
 import style from "../assets/css/style.css";
 import styled from "styled-components";
 
@@ -7,13 +7,15 @@ import styled from "styled-components";
 const Users = () => {
     return (
         <React.Fragment>
-            <Container>
                 <Container className="form-data">
                     <form action="">
                         <div className="logo">
                             <img src="img/logo.png" alt="logo"/>
                         </div>
-                        <button className="form-btn" type="submit">Facebooke으로 로그인</button>
+
+                        <Ment>친구들의 사진과 동영상을 보려면 가입하세요.</Ment>
+
+                        <Button text="Facebookd으로 로그인"/>
 
                         <span className="has-separator">또는</span>
 
@@ -50,7 +52,7 @@ const Users = () => {
                             }}
                         />
 
-                        <button className="form-btn" type="submit">가입</button>
+                        <Button text="가입"/>
 
                     </form>
                     <div className="sign-up">
@@ -64,13 +66,19 @@ const Users = () => {
                         </div>
                     </div>
                 </Container>
-            </Container>
         </React.Fragment>
     );
 };
 
 const Container = styled.div`
-    margin: auto;
+  margin: 35px auto;
+`;
+
+const Ment = styled.h2`
+  color: rgba(var(--f52, 142, 142, 142), 1);
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0 10px;
 `;
 
 

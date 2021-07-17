@@ -1,5 +1,5 @@
 import React from "react";
-import {Input} from "../elements";
+import {Input, Button} from "../elements";
 import style from "../assets/css/style.css";
 
 
@@ -31,8 +31,9 @@ const Login = (props) => {
                                     console.log("아이디 입력!");
                                 }}
                             />
+                            
+                            <Button text="로그인"/>
 
-                            <button className="form-btn" type="submit">로그인</button>
                             <span className="has-separator">또는</span>
                             <a className="facebook-login">
                                 <i className="fab fa-facebook-square"></i> Facebook으로 로그인
