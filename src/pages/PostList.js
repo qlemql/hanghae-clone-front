@@ -5,7 +5,6 @@ const PostList = () => {
   return (
     <>
       <Post />
-      {/* test 주석 */}
     </>
   );
 };
