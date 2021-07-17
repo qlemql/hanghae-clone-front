@@ -3,7 +3,6 @@ import {Input, Button, Footer} from "../elements";
 import style from "../assets/css/style.css";
 import styled from "styled-components";
 
-
 const Users = () => {
     return (
         <React.Fragment>
@@ -15,7 +14,7 @@ const Users = () => {
                         </div>
 
                         <Ment>친구들의 사진과 동영상을 보려면 가입하세요.</Ment>
-                        <Button text="Facebook으로 로그인"/>
+                        <Button fontWeight="800" text="Facebook으로 로그인"/>
                         <span className="has-separator">또는</span>
                         <Input
                             type="text"
@@ -68,7 +67,7 @@ const Users = () => {
 const Ment = styled.h2`
   color: rgba(var(--f52, 142, 142, 142), 1);
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 800;
   margin: 0 10px;
 `;
 

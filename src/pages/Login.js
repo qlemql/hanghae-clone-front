@@ -2,7 +2,6 @@ import React from "react";
 import {Input, Button, Footer} from "../elements";
 import style from "../assets/css/style.css";
 
-
 const Login = (props) => {
     return (
         <React.Fragment>

@@ -1,5 +1,7 @@
+import {ConnectedRouter} from "connected-react-router";
 import React from "react";
-import {BrowserRouter, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
+import {history} from "../redux/configStore";
 import Header from "../components/Header";
 import PostList from "../pages/PostList";
 import Users from "../pages/Users";
@@ -7,12 +9,14 @@ import Login from "../pages/Login";
 
 const App = () => {
     return (
-        <BrowserRouter>
-            <Route path="/" exact component={Header}/>
-            <Route path="/" exact component={PostList}/>
-            <Route path="/login/" component={Login}></Route>
-            <Route path="/users/" component={Users}></Route>
-        </BrowserRouter>
+        <>
+            <ConnectedRouter history={history}>
+                <Header/>
+                <Route path="/" exact component={PostList}/>
+                <Route path="/login/" component={Login}></Route>
+                <Route path="/users/" component={Users}></Route>
+            </ConnectedRouter>
+        </>
     );
 };
 
