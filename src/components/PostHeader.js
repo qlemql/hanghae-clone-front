@@ -32,13 +32,13 @@ function PostHeader(props) {
           </div>
           <UserInfo>
             <li>
-              <span>게시물 240</span>
+              <span>게시물 {props.user_info.user_contents}</span>
             </li>
             <li>
-              <a href="/">팔로워 125</a>
+              <a href="/">팔로워 {props.user_info.user_follower}</a>
             </li>
             <li>
-              <a href="/">팔로우 144</a>
+              <a href="/">팔로우 {props.user_info.user_follow}</a>
             </li>
           </UserInfo>
           <div>
@@ -56,6 +56,9 @@ PostHeader.defaultProps = {
     user_name: "TaeHyun",
     user_nickname: "altere_",
     user_img: require("../assets/images/profile.jpg").default,
+    user_contents: 240,
+    user_follow: 125,
+    user_follower: 144,
   },
 };
 
