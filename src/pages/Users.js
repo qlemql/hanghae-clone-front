@@ -1,11 +1,11 @@
 import React from "react";
 
-const Login = () => {
+const Users = () => {
     return (
         <React.Fragment>
-            User Login
+            User Signup
         </React.Fragment>
     );
 };
 
-export default Login;
+export default Users;
