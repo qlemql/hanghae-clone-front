@@ -23,6 +23,7 @@ function PostHeader(props) {
           style={{
             overlay: {
               backgroundColor: "rgba(0,0,0,0.5)",
+              zIndex: "1000",
             },
             content: {
               top: "50%",

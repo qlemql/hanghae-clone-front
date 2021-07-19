@@ -69,17 +69,17 @@ function Post(props) {
           {myPostList.map((item) => (
             <Card key={item.postId}>
               <DisplayOver>
-                {/* <div>
+                <div>
                   <img src={item.image} alt="" />
-                </div> */}
+                </div>
                 <Hover>
                   <li>
                     <FavoriteIcon />
-                    <span>15</span>
+                    <span>{item.like}</span>
                   </li>
                   <li>
                     <FaComment />
-                    <span>0</span>
+                    <span>{item.like}</span>
                   </li>
                 </Hover>
               </DisplayOver>
@@ -137,6 +137,10 @@ const SpanContainers = styled.div`
   color: #262626;
   height: 52px;
   cursor: pointer;
+  span {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 const CardContainer = styled.div`
