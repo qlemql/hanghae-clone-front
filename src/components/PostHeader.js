@@ -1,54 +1,81 @@
 import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
-import Modal from "./Modal";
+import Modal from "react-modal";
 
+Modal.setAppElement("#root");
 function PostHeader(props) {
-  const [isShowing, setIsShowing] = useState(false);
-
-  const openModal = () => {
-    setIsShowing(true);
-  };
-
-  const closeModal = () => {
-    setIsShowing(false);
-  };
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   return (
     <>
       <Header>
-        <Btn onClick={openModal}>
-          {/* <Img src={props.user_info.user_img} /> */}
+        <Btn
+          onClick={() => {
+            setModalIsOpen(true);
+          }}
+        >
+          <Img src={props.user_info.user_img} />
         </Btn>
-        {/* modal 수정해야함 */}
-        <div>
-          {isShowing && (
-            <Modal
-              open={openModal}
-              close={closeModal}
-              header="프로필 사진 바꾸기"
-            />
-          )}
-        </div>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={() => setModalIsOpen(false)}
+          style={{
+            overlay: {
+              backgroundColor: "rgba(0,0,0,0.5)",
+            },
+            content: {
+              top: "50%",
+              left: "50%",
+              right: "auto",
+              bottom: "auto",
+              marginRight: "-50%",
+              transform: "translate(-50%, -50%)",
+              width: "400px",
+              height: "220px",
+              padding: "0px",
+              borderRadius: "12px",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+            },
+          }}
+        >
+          <ModalTitle>프로필 사진 바꾸기</ModalTitle>
+          <ModalBtn
+            onClick={() => {
+              console.log("object");
+            }}
+            style={{ color: "#0095f6" }}
+          >
+            사진업로드
+          </ModalBtn>
+          <ModalBtn style={{ color: "#ed4956" }}>현재사진삭제</ModalBtn>
+          <ModalBtn onClick={() => setModalIsOpen(false)}>취소</ModalBtn>
+        </Modal>
         <Section>
-          <div>
+          <UserNickName>
             <h2>{props.user_info.user_nickname}</h2>
-          </div>
+          </UserNickName>
           <UserInfo>
             <li>
-              <span>게시물 {props.user_info.user_contents}</span>
+              게시물 <span>{props.user_info.user_contents}</span>
             </li>
             <li>
-              <a href="/">팔로워 {props.user_info.user_follower}</a>
+              <a href="/">
+                팔로워 <span>{props.user_info.user_follower}</span>
+              </a>
             </li>
             <li>
-              <a href="/">팔로우 {props.user_info.user_follow}</a>
+              <a href="/">
+                팔로우 <span>{props.user_info.user_follow}</span>
+              </a>
             </li>
           </UserInfo>
-          <div>
+          <User>
             <h1>{props.user_info.user_name}</h1>
             <span>post name</span>
-          </div>
+          </User>
         </Section>
       </Header>
     </>
@@ -71,15 +98,41 @@ const Header = styled.div`
   max-width: 800px;
   height: 100%;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  margin: 0 auto;
+  margin: 0 5%;
+  margin-bottom: 44px;
 `;
 
 const Btn = styled.button`
+  flex-grow: 1;
+  flex-basis: 0;
   border: none;
-  background-color: #fff;
-  margin-right: 100px;
+  background-color: unset;
+  margin-right: 30px;
+`;
+
+const ModalTitle = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 16px 32px;
+  line-height: 24px;
+`;
+
+const ModalBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 16px;
+  border-top: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  cursor: pointer;
+  line-height: 1.5;
+  padding: 4px 8px;
+  margin: 0px;
+  min-height: 48px;
 `;
 
 const Img = styled.img`
@@ -93,18 +146,39 @@ const Img = styled.img`
 `;
 
 const Section = styled.section`
-  width: 100%;
+  flex-grow: 2;
+  flex-basis: 30px;
   li {
     margin-right: 20px;
+    margin-bottom: 20px;
     list-style: none;
   }
+`;
+
+const UserNickName = styled.div`
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 32px;
 `;
 
 const UserInfo = styled.ul`
   width: 100%;
   padding: 0px;
   display: flex;
+  font-size: 16px;
   justify-content: flex-start;
+  span {
+    font-weight: 600;
+  }
+`;
+
+const User = styled.div`
+  font-weight: 600;
+  span {
+    font-size: 16px;
+    font-weight: 300;
+  }
 `;
 
 export default PostHeader;
