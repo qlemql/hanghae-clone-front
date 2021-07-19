@@ -11,7 +11,7 @@ const App = () => {
     return (
         <>
             <ConnectedRouter history={history}>
-                <Header/>
+                {/*<Header/>*/}
                 <Route path="/" exact component={PostList}/>
                 <Route path="/login/" component={Login}></Route>
                 <Route path="/users/" component={Users}></Route>
