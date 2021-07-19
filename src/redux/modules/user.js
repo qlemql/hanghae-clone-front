@@ -38,20 +38,20 @@ const loginDB =
                     const accessToken = "Bearer " + res.data.token;
                     setCookie("is_login", `${accessToken}`);
                 })
-                .catch((err) => {
-                    console.log(err);
-                });
         };
-
 
 const loginCheckDB = () =>
     async (dispatch, getState, {history}) => {
         const token = getCookie("is_login");
-        await api
+        await api.get('/users').then((res) => {
+            dispatch(setUSER({
+                token: token,
+                createdAt: res.data.user.createdAt,
+                nickname: res.data.user.nickname,
+                realName: res.data.user.realName,
+            }))
+        });
     };
-
-
-
 
 const signupDB =
     (setEmail, setNickname, setRealname, setPassword) =>
@@ -86,6 +86,7 @@ export default handleActions(
 
 const actionCreators = {
     loginDB,
+    loginCheckDB,
     signupDB,
 };
 

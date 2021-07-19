@@ -23,6 +23,7 @@ const Users = () => {
         <React.Fragment>
             <div className="container">
                 <div className="form-data">
+                    <Form>
                         <div className="logo">
                             <img src="img/logo.png" alt="logo"/>
                         </div>
@@ -62,6 +63,8 @@ const Users = () => {
                             }}
                         />
                         <Button text="가입" _onClick={register}/>
+                    </Form>
+
 
                     <div className="sign-up">
                         계정이 있으신가요? <a>로그인</a>
@@ -85,6 +88,15 @@ const Ment = styled.h2`
   font-size: 17px;
   font-weight: 800;
   margin: 0 10px;
+`;
+
+const Form = styled.div`
+  background-color: #fff;
+  border: 2px solid #eee;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 4rem;
+  text-align: center;
 `;
 
 export default Users;

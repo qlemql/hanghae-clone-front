@@ -7,7 +7,17 @@ import PostList from "../pages/PostList";
 import Users from "../pages/Users";
 import Login from "../pages/Login";
 
+import {useDispatch} from "react-redux";
+import {actionCreators as userActions} from "../redux/modules/user";
+
+
 const App = () => {
+
+    const dispatch = useDispatch();
+    React.useEffect(() => {
+        dispatch(userActions.loginCheckDB())
+    },[])
+
     return (
         <>
             <ConnectedRouter history={history}>
