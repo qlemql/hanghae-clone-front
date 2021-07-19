@@ -2,19 +2,18 @@ import React from "react";
 import styled from "styled-components";
 
 const Input = (props) => {
-    const {type, placeholder, _onChange} = props;
+    const {type, value,  placeholder, _onChange} = props;
     return (
         <React.Fragment>
-            <ElInput placeholder={placeholder} onChange={_onChange}/>
+            <ElInput type={type} value={value} placeholder={placeholder} onChange={_onChange}/>
         </React.Fragment>
     )
 }
 
 Input.defaultProps = {
     placeholder: '입력',
-    type: '',
-    _onChange: () => {
-    },
+    value: '',
+    _onChange: () => {},
 }
 
 const ElInput = styled.input`
