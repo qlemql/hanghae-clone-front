@@ -10,17 +10,13 @@ const Users = () => {
 
     const dispatch = useDispatch();
 
-    const [Email, setEmail] = React.useState("")
-    const [Password, setPassword] = React.useState("")
-    const [Realname, setRealname] = React.useState("")
-    const [Nickname, setNickname] = React.useState("")
+    const [email, setEmail] = React.useState("")
+    const [password, setPassword] = React.useState("")
+    const [realname, setRealname] = React.useState("")
+    const [nickname, setNickname] = React.useState("")
 
     const register = () => {
-        dispatch(userActions.signupDB(Email, Password, Realname, Nickname))
-        console.log(Email)
-        console.log(Password)
-        console.log(Realname)
-        console.log(Nickname)
+        dispatch(userActions.signupDB(email, nickname, realname, password))
     }
 
     return (
@@ -35,7 +31,7 @@ const Users = () => {
                         <span className="has-separator">또는</span>
                         <Input
                             type="text"
-                            value={Email}
+                            value={email}
                             placeholder="휴대폰 번호 또는 이메일 주소"
                             _onChange={(e) => {
                                 setEmail(e.target.value);
@@ -43,7 +39,7 @@ const Users = () => {
                         />
                         <Input
                             type="text"
-                            value={Realname}
+                            value={realname}
                             placeholder="성명"
                             _onChange={(e) => {
                                 setRealname(e.target.value);
@@ -51,7 +47,7 @@ const Users = () => {
                         />
                         <Input
                             type="text"
-                            value={Nickname}
+                            value={nickname}
                             placeholder="사용자 이름"
                             _onChange={(e) => {
                                 setNickname(e.target.value);
@@ -59,7 +55,7 @@ const Users = () => {
                         />
                         <Input
                             type="password"
-                            value={Password}
+                            value={password}
                             placeholder="비밀번호"
                             _onChange={(e) => {
                                 setPassword(e.target.value);

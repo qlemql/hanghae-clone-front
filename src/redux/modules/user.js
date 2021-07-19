@@ -1,6 +1,10 @@
 import {createAction, handleActions} from "redux-actions";
 import {produce} from "immer";
 import axios from "axios";
+import {api} from "../../shared/api";
+
+import {setCookie, getCookie, deleteCookie} from "../../shared/Cookie";
+
 
 // action type
 const SET_USER = "user/SET_USER";
@@ -13,30 +17,60 @@ const initialState = {
 };
 
 
-// email: "password1234"
-// nickname: "ha@naver.com"
-// password: "nickname"
-// realName: "name"
+const loginDB =
+    (setEmail, setPassword) =>
+        async (dispatch, getState, {history}) => {
+            console.log(setEmail, setPassword);
+            await api
+                .post(`/login`, {
+                    email: setEmail,
+                    password: setPassword,
+                })
+                .then((res) => {
+                    console.log(res);
+                    dispatch(setUSER({
+                        createdAt: res.data.user.createdAt,
+                        email: res.data.user.email,
+                        nickname: res.data.user.nickname,
+                        password: res.data.user.password,
+                        realName: res.data.user.realName,
+                    }))
+                    const accessToken = "Bearer " + res.data.token;
+                    setCookie("is_login", `${accessToken}`);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        };
 
-// thunk
-const signupDB = (setNickname, setEmail, setRealname, setPassword) => {
-    return function (dispatch, getState, {history}) {
-        console.log(setNickname)
-        console.log(setEmail)
-        console.log(setRealname)
-        console.log(setPassword)
-        axios.post("http://15.165.18.118/users", {
-            "nickname": setNickname,
-            "email": setEmail,
-            "realName": setRealname,
-            "password": setPassword,
-        }).then((res) => {
-            console.log(res)
-        }).catch((err) => {
-            console.log(err)
-        })
-    }
-}
+
+const loginCheckDB = () =>
+    async (dispatch, getState, {history}) => {
+        const token = getCookie("is_login");
+        await api
+    };
+
+
+
+
+const signupDB =
+    (setEmail, setNickname, setRealname, setPassword) =>
+        async (dispatch, getState, {history}) => {
+            console.log(setEmail, setNickname, setRealname, setPassword);
+            await api
+                .post(`/users`, {
+                    email: setEmail,
+                    nickname: setNickname,
+                    realName: setRealname,
+                    password: setPassword,
+                })
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        };
 
 
 // Reducer
@@ -51,7 +85,7 @@ export default handleActions(
 );
 
 const actionCreators = {
-    setUSER,
+    loginDB,
     signupDB,
 };
 
