@@ -1,8 +1,7 @@
-@import url('http://fonts.cdnfonts.com/css/billabong');
 body {
     background: #fafafa;
 }
-/* wrapper */
+
 .navigation {
     background-color: #ffffff;
     height: 54px;
@@ -56,7 +55,7 @@ body {
 .nav-logo {
     flex: 1;
     display: flex;
-    min-width: -webkit-min-content; /* Workaround to Chrome bug */
+    min-width: -webkit-min-content;
 }
 
 /* center */
@@ -85,10 +84,7 @@ body {
     color: rgba(0, 0, 0, 0.5);
 }
 
-
-
 @media only screen and (min-width: 320px) and (max-width: 650px) {
-    /* Navigation */
     .navigation {
         padding: 0 20px;
         justify-content: space-between;
@@ -103,16 +99,10 @@ body {
 
 /* right */
 .navigation-icons {
-    /*display: flex;*/
-    /*justify-self: flex-end;*/
-
-
     flex: 1;
     display: flex;
-    min-width: -webkit-min-content; /* Workaround to Chrome bug */
-
+    min-width: -webkit-min-content;
     justify-content: flex-end;
-
 }
 
 .navigation-search-container input:focus {
@@ -128,7 +118,7 @@ body {
 }
 
 .navigation-link i {
-    margin-left: 30px;
+    margin-left: 18px;
     color: black;
     text-decoration: none;
     font-size: 22px;
@@ -140,20 +130,3 @@ body {
     left: 17px;
 }
 
-.notification-bubble {
-    position: absolute;
-    min-width: 20px;
-    min-height: 20px;
-    border-radius: 50%;
-    background: #ff2c74;
-    color: #fff;
-    text-align: center;
-    font-size: 13px;
-    padding: 5px 5px 3px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    font-weight: 500;
-    display: none;
-}
-
-/* end header */

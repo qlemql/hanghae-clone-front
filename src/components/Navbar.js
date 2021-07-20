@@ -13,17 +13,18 @@ const Navbar = () => {
         <React.Fragment>
 
             <div className="navigation">
+
                 {/* outer wrapper */}
                 <div className="box">
 
-                    {/* left inner */}
+                    {/* left inner, logo */}
                     <div className="nav-logo">
                         <a className="no-underline" href="#">
                             <img src="img/logo.png" alt="logo"/>
                         </a>
                     </div>
 
-                    {/* center inner */}
+                    {/* center inner, search bar */}
                     <div className="navigation-search-container">
                         <i className="fa fa-search"></i>
                         <input className="search-field" type="text" placeholder="검색"/>
@@ -35,35 +36,29 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    {/* right inner */}
+                    {/* right inner, icons */}
                     <div className="navigation-icons">
-                        <a href="https://instagram.com/mimoudix" className="navigation-link">
+                        <a className="navigation-link">
                             <i className="far fa-compass"><AiFillHome/></i>
                         </a>
-                        <a className="navigation-link notifica">
+                        <a className="navigation-link">
                                 <i className="far fa-user-circle"><HiOutlinePaperAirplane/></i>
                         </a>
-                        <a href="https://instagram.com/mimoudix" className="navigation-link">
+                        <a className="navigation-link">
                             <i className="far fa-user-circle"><TiCompass/></i>
                         </a>
-                        <a href="https://instagram.com/mimoudix" id="signout" className="navigation-link">
+                        <a  id="signout" className="navigation-link">
                             <i className="fas fa-sign-out-alt"><BiHeart/></i>
                         </a>
                         {/* 유저 프로필 이미지 */}
-                        <a href="https://instagram.com/mimoudix" id="signout" className="navigation-link">
+                        <a id="signout" className="navigation-link">
                             <i className="fas fa-sign-out-alt"><CgProfile/></i>
                         </a>
                     </div>
-
-
                 </div>
 
-
-
-
-
-
             </div>
+
         </React.Fragment>
     );
 }
