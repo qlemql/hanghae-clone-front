@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import PostHeader from "./PostHeader";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
+import Modal from "react-modal";
 import AppsIcon from "@material-ui/icons/Apps";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
@@ -12,6 +12,8 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import { FaComment } from "react-icons/fa";
 
 function Post(props) {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -65,25 +67,60 @@ function Post(props) {
                 <span>0</span>
               </li>
             </div> */}
-
           {myPostList.map((item) => (
-            <Card key={item.postId}>
-              <DisplayOver>
-                <div>
-                  <img src={item.image} alt="" />
-                </div>
-                <Hover>
-                  <li>
-                    <FavoriteIcon />
-                    <span>{item.like}</span>
-                  </li>
-                  <li>
-                    <FaComment />
-                    <span>{item.like}</span>
-                  </li>
-                </Hover>
-              </DisplayOver>
-            </Card>
+            <div>
+              <Card
+                key={item.postId}
+                onClick={() => {
+                  setModalIsOpen(true);
+                }}
+              >
+                <DisplayOver>
+                  <div>
+                    <img src={item.image} alt="" />
+                  </div>
+                  <Hover>
+                    <li>
+                      <FavoriteIcon />
+                      <span>{item.like}</span>
+                    </li>
+                    <li>
+                      <FaComment />
+                      <span>{item.like}</span>
+                    </li>
+                  </Hover>
+                </DisplayOver>
+              </Card>
+              <Modal
+                onRequestClose={() => setModalIsOpen(false)}
+                isOpen={modalIsOpen}
+                style={{
+                  overlay: {
+                    backgroundColor: "rgba(0,0,0,0.2)",
+                    zIndex: "1000",
+                  },
+                  content: {
+                    top: "50%",
+                    left: "50%",
+                    right: "auto",
+                    bottom: "auto",
+                    marginRight: "-50%",
+                    transform: "translate(-50%, -50%)",
+                    width: "400px",
+                    height: "220px",
+                    padding: "0px",
+                    borderRadius: "12px",
+                    display: "flex",
+                    justifyContent: "center",
+                    flexDirection: "column",
+                  },
+                }}
+              >
+                <div>{item.content}</div>
+                <div>{item.postId}</div>
+                <button onClick={() => setModalIsOpen(false)}>asd</button>
+              </Modal>
+            </div>
           ))}
         </CardContainer>
       </Container>
@@ -103,6 +140,7 @@ const Container = styled.div`
   box-sizing: content-box;
   max-width: 935px;
   margin: 0 auto 30px;
+  margin-top: 50px;
 `;
 
 const SubMenu = styled.div`

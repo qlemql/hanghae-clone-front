@@ -43,14 +43,7 @@ function PostHeader(props) {
           }}
         >
           <ModalTitle>프로필 사진 바꾸기</ModalTitle>
-          <ModalBtn
-            onClick={() => {
-              console.log("object");
-            }}
-            style={{ color: "#0095f6" }}
-          >
-            사진업로드
-          </ModalBtn>
+          <ModalBtn style={{ color: "#0095f6" }}>사진업로드</ModalBtn>
           <ModalBtn style={{ color: "#ed4956" }}>현재사진삭제</ModalBtn>
           <ModalBtn onClick={() => setModalIsOpen(false)}>취소</ModalBtn>
         </Modal>
