@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 // icon
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import { FaRegComment } from "react-icons/fa";
 import { FiSend } from "react-icons/fi";
-import TelegramIcon from "@material-ui/icons/Telegram";
 
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
-
 function ModalContainer(props) {
+  const postData = useSelector((state) => state.post.postData);
+  console.log(postData);
   return (
     <ModalContainers>
       <ImgContainer>

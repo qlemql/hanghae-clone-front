@@ -91,7 +91,7 @@ function Post(props) {
               },
             }}
           >
-            <ModalContainer />
+            <ModalContainer myPostList={myPostList} />
             {/* <ModalCloseBtn onClick={() => setModalIsOpen(false)}>
                 X
               </ModalCloseBtn> */}
