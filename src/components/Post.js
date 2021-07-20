@@ -1,138 +1,112 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import PostHeader from "./PostHeader";
+import ModalContainer from "./ModalContainer";
+import SubMenu from "./SubMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 import Modal from "react-modal";
-import AppsIcon from "@material-ui/icons/Apps";
-import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
-import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
-import AssignmentIndOutlinedIcon from "@material-ui/icons/AssignmentIndOutlined";
+
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { FaComment } from "react-icons/fa";
 
 function Post(props) {
+  // 모달 상태
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const dispatch = useDispatch();
 
+  // 페이지 리랜더링할때마다 post정보 가져오기
   React.useEffect(() => {
     dispatch(postActions.getPostDB());
   }, []);
 
+  // post정보와 가져와서 화면에 보여주기
   const myPostList = useSelector((state) => state.post.list);
-  console.log(myPostList);
+
+  // 게시글 클릭시 해당 게시글 detail정보 가져오는 함수
+  const getDetail = (postId) => {
+    dispatch(postActions.getPostDetailDB(postId));
+  };
+
   return (
     <>
       <Container>
         {/* 유저 정보 */}
         <PostHeader />
         {/* 서브 메뉴 */}
-        <SubMenu>
-          <SpanContainer>
-            <span>
-              <AppsIcon />
-              <span>게시물</span>
-            </span>
-          </SpanContainer>
-          <SpanContainer>
-            <span>
-              <PlayCircleOutlineIcon />
-              <span>동영상</span>
-            </span>
-          </SpanContainer>
-          <SpanContainer>
-            <span>
-              <BookmarkBorderIcon />
-              <span>저장됨</span>
-            </span>
-          </SpanContainer>
-          <SpanContainers>
-            <span>
-              <AssignmentIndOutlinedIcon />
-              <span>태그됨</span>
-            </span>
-          </SpanContainers>
-        </SubMenu>
+        <SubMenu />
         {/* 게시글 */}
         <CardContainer>
-          {/* <div>
-              <img src={props.image_url} alt="" />
-            </div>
-            <div>
-              <li>
-                <span>15</span>
-              </li>
-              <li>
-                <span>0</span>
-              </li>
-            </div> */}
           {myPostList.map((item) => (
-            <div>
-              <Card
-                key={item.postId}
+            <Card
+              key={item.postId}
+              onClick={() => {
+                setModalIsOpen(true);
+              }}
+            >
+              <DisplayOver
                 onClick={() => {
-                  setModalIsOpen(true);
+                  getDetail(item.postId);
                 }}
               >
-                <DisplayOver>
-                  <div>
-                    <img src={item.image} alt="" />
-                  </div>
-                  <Hover>
-                    <li>
-                      <FavoriteIcon />
-                      <span>{item.like}</span>
-                    </li>
-                    <li>
-                      <FaComment />
-                      <span>{item.like}</span>
-                    </li>
-                  </Hover>
-                </DisplayOver>
-              </Card>
-              <Modal
-                onRequestClose={() => setModalIsOpen(false)}
-                isOpen={modalIsOpen}
-                style={{
-                  overlay: {
-                    backgroundColor: "rgba(0,0,0,0.2)",
-                    zIndex: "1000",
-                  },
-                  content: {
-                    top: "50%",
-                    left: "50%",
-                    right: "auto",
-                    bottom: "auto",
-                    marginRight: "-50%",
-                    transform: "translate(-50%, -50%)",
-                    width: "400px",
-                    height: "220px",
-                    padding: "0px",
-                    borderRadius: "12px",
-                    display: "flex",
-                    justifyContent: "center",
-                    flexDirection: "column",
-                  },
-                }}
-              >
-                <div>{item.content}</div>
-                <div>{item.postId}</div>
-                <button onClick={() => setModalIsOpen(false)}>asd</button>
-              </Modal>
-            </div>
+                <div>
+                  <img src={item.image} alt="" />
+                </div>
+                <Hover>
+                  <li>
+                    <FavoriteIcon />
+                    <span>{item.like}</span>
+                  </li>
+                  <li>
+                    <FaComment />
+                    <span>{item.like}</span>
+                  </li>
+                </Hover>
+              </DisplayOver>
+            </Card>
           ))}
+          <Modal
+            onRequestClose={() => setModalIsOpen(false)}
+            isOpen={modalIsOpen}
+            style={{
+              overlay: {
+                backgroundColor: "rgba(0,0,0,0.2)",
+                zIndex: "1000",
+              },
+              content: {
+                top: "50%",
+                left: "50%",
+                right: "auto",
+                bottom: "auto",
+                marginRight: "-50%",
+                transform: "translate(-50%, -50%)",
+                width: "930px",
+                height: "600px",
+                padding: "0px",
+                borderRadius: "0px",
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+              },
+            }}
+          >
+            <ModalContainer />
+            {/* <ModalCloseBtn onClick={() => setModalIsOpen(false)}>
+                X
+              </ModalCloseBtn> */}
+          </Modal>
         </CardContainer>
       </Container>
     </>
   );
 }
 
-Post.defaultProps = {
-  image_url: require("../assets/images/content.jpg").default,
-  contents: "안녕하세요",
-  comments: "좋아요!",
-};
+// Post.defaultProps = {
+//   image_url: require("../assets/images/content.jpg").default,
+//   contents: "안녕하세요",
+//   comments: "좋아요!",
+// };
 
 const Container = styled.div`
   width: 100%;
@@ -141,44 +115,6 @@ const Container = styled.div`
   max-width: 935px;
   margin: 0 auto 30px;
   margin-top: 50px;
-`;
-
-const SubMenu = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-top: 1px solid #dbdbdb;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-align: center;
-`;
-
-const SpanContainer = styled.div`
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin-right: 60px;
-  color: #262626;
-  height: 52px;
-  cursor: pointer;
-  span {
-    display: flex;
-    align-items: center;
-  }
-`;
-
-const SpanContainers = styled.div`
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #262626;
-  height: 52px;
-  cursor: pointer;
-  span {
-    display: flex;
-    align-items: center;
-  }
 `;
 
 const CardContainer = styled.div`
@@ -238,15 +174,5 @@ const Card = styled.div({
     opacity: 1,
   },
 });
-
-// const LikeComment = styled.div({
-//   fontFamily: "Helvetica",
-//   transform: "translate3d(0,50px,0)",
-//   transition: "transform 350ms ease",
-//   listStyle: "none",
-//   display: "flex",
-//   justifyContent: "space-around",
-//   alignItems: "center",
-// });
 
 export default Post;

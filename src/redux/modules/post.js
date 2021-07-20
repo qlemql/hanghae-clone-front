@@ -1,16 +1,23 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
+import { api } from "../../shared/api";
 
 // action type
 const GET_POST = "GET_POST";
+const GET_POSTDETAIL = "GET_POSTDETAIL";
 
 // action create function
 const getPost = createAction(GET_POST, (list) => ({ list }));
+const getPostDetail = createAction(GET_POSTDETAIL, (postData, postId) => ({
+  postData,
+  postId,
+}));
 
 // initialState
 const initialState = {
   list: [],
+  postData: {},
 };
 
 // thunk
@@ -23,12 +30,31 @@ const getPostDB = (name, img) => {
   };
 };
 
+const getPostDetailDB = (postId) => {
+  return function (dispatch, getState, { history }) {
+    console.log(postId);
+    api
+      .get(`/posts/${postId}`)
+      .then((res) => {
+        console.log(res);
+        dispatch(getPostDetail(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 // reducer
 export default handleActions(
   {
     [GET_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list = action.payload.list;
+      }),
+    [GET_POSTDETAIL]: (state, action) =>
+      produce(state, (draft) => {
+        draft.postData = action.payload.postData;
       }),
   },
   initialState
@@ -37,6 +63,7 @@ export default handleActions(
 const actionCreators = {
   getPost,
   getPostDB,
+  getPostDetailDB,
 };
 
 export { actionCreators };
