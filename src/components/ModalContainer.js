@@ -1,5 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+// icon
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import { FaRegComment } from "react-icons/fa";
+import { FiSend } from "react-icons/fi";
+import TelegramIcon from "@material-ui/icons/Telegram";
+
+import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 
 function ModalContainer(props) {
   return (
@@ -17,10 +24,33 @@ function ModalContainer(props) {
         </ModalHeader>
 
         <ModalContents>
-          <div></div>
+          <UserContents>
+            <img src={props.user_img} alt="user_profile" />
+            <Container>
+              <div>{props.userNickName}</div>
+              <div>코멘트</div>
+            </Container>
+          </UserContents>
         </ModalContents>
 
-        <ModalLikeComment></ModalLikeComment>
+        <ModalLikeComment>
+          <ModalIcon>
+            <div>
+              <FavoriteBorderIcon style={{ fontSize: 30 }} />
+            </div>
+            <div>
+              <FaRegComment />
+            </div>
+            <div>
+              <FiSend />
+            </div>
+            <div>
+              <BookmarkBorderIcon style={{ fontSize: 30 }} />
+            </div>
+          </ModalIcon>
+          <Like>좋아요 1개</Like>
+          <div>1일전</div>
+        </ModalLikeComment>
 
         <ModalInput>
           <input type="text" />
@@ -94,9 +124,65 @@ const UserSet = styled.div`
   cursor: pointer;
 `;
 
-const ModalContents = styled.div``;
+const UserContents = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  div {
+    font-weight: bold;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+  }
+  div:last-child {
+    width: 100%;
+    padding-left: 5px;
+  }
+  img {
+    width: 11%;
+    height: 50%;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-left: 20px;
+    border-radius: 50%;
+  }
+`;
 
-const ModalLikeComment = styled.div``;
+const Container = styled.div``;
+
+const ModalContents = styled.div`
+  border-bottom: 1px solid rgba(var(--ce3, 239, 239, 239), 1);
+  height: 55%;
+`;
+
+const ModalLikeComment = styled.div`
+  border-bottom: 1px solid rgba(var(--ce3, 239, 239, 239), 1);
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 10px;
+`;
+
+const ModalIcon = styled.div`
+  display: flex;
+  align-items: center;
+  height: 20px;
+  font-size: 30px;
+
+  div {
+    padding: 10px 10px 10px 0px;
+  }
+  div:last-child {
+    padding-left: 150px;
+  }
+`;
+
+const Like = styled.div`
+  font-size: 14px;
+  font-weight: bold;
+`;
 
 const ModalInput = styled.div``;
 
