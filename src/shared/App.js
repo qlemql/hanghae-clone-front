@@ -6,6 +6,8 @@ import Header from "../components/Header";
 import PostList from "../pages/PostList";
 import Users from "../pages/Users";
 import Login from "../pages/Login";
+import Favicon from 'react-favicon'
+
 
 import {useDispatch} from "react-redux";
 import {actionCreators as userActions} from "../redux/modules/user";
@@ -21,6 +23,7 @@ const App = () => {
     return (
         <>
             <ConnectedRouter history={history}>
+                <Favicon url='img/2000px-instagram_logo_2016svg-2000x2000.png' />
                 {/*<Header/>*/}
                 <Route path="/" exact component={PostList}/>
                 <Route path="/login/" component={Login}></Route>
