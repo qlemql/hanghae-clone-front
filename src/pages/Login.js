@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import style from "../assets/css/style.css";
 import {Input, Button, Footer} from "../elements";
+import Navbar from "../components/Navbar";
 import {actionCreators as userActions} from "../redux/modules/user";
 import {useDispatch} from 'react-redux';
 
@@ -18,6 +20,7 @@ const Login = (props) => {
 
     return (
         <React.Fragment>
+            <Navbar/>
             <div id="wrapper">
                 <div className="container">
                     <div className="form-data">
