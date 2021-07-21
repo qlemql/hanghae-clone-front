@@ -5,6 +5,7 @@ import ModalContainer from "./ModalContainer";
 import SubMenu from "./SubMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
+import { actionCreators as commentActions } from "../redux/modules/comment";
 import Modal from "react-modal";
 
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -23,10 +24,12 @@ function Post(props) {
 
   // post정보와 가져와서 화면에 보여주기
   const myPostList = useSelector((state) => state.post.list);
+  console.log(myPostList);
 
   // 게시글 클릭시 해당 게시글 detail정보 가져오는 함수
   const getDetail = (postId) => {
     dispatch(postActions.getPostDetailDB(postId));
+    dispatch(commentActions.getCommentDB(postId));
   };
 
   return (
@@ -45,22 +48,24 @@ function Post(props) {
                 setModalIsOpen(true);
               }}
             >
+              <ThunmNail>
+                <img src={`http://15.165.18.118${item.image}`} alt="" />
+              </ThunmNail>
               <DisplayOver
                 onClick={() => {
                   getDetail(item.postId);
                 }}
               >
-                <div>
-                  <img src={item.image} alt="" />
-                </div>
                 <Hover>
                   <li>
                     <FavoriteIcon />
-                    <span>{item.like}</span>
+                    <span style={{ paddingLeft: "10px" }}>
+                      {item.likeCount}
+                    </span>
                   </li>
                   <li>
                     <FaComment />
-                    <span>{item.like}</span>
+                    <span style={{ paddingLeft: "10px" }}>{item.Comments}</span>
                   </li>
                 </Hover>
               </DisplayOver>
@@ -102,11 +107,11 @@ function Post(props) {
   );
 }
 
-// Post.defaultProps = {
-//   image_url: require("../assets/images/content.jpg").default,
-//   contents: "안녕하세요",
-//   comments: "좋아요!",
-// };
+Post.defaultProps = {
+  image_url: require("../assets/images/content.jpg").default,
+  contents: "안녕하세요",
+  comments: "좋아요!",
+};
 
 const Container = styled.div`
   width: 100%;
@@ -122,6 +127,7 @@ const CardContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 `;
 
 // const Card = styled.div`
@@ -135,16 +141,20 @@ const CardContainer = styled.div`
 //   }
 // `;
 
+const ThunmNail = styled.image`
+  width: 100%;
+  height: 100%;
+`;
+
 const DisplayOver = styled.div({
-  height: "100%",
-  left: "0",
+  height: "87%",
+  left: "20px",
   position: "absolute",
-  top: "0",
-  width: "100%",
+  top: "20px",
+  width: "87%",
   zIndex: 2,
   transition: "background-color 350ms ease",
   backgroundColor: "transparent",
-  padding: "20px 20px 0 20px",
   boxSizing: "border-box",
   display: "flex",
   justifyContent: "center",
@@ -156,16 +166,18 @@ const Hover = styled.div({
   transition: "opacity 350ms ease",
   listStyle: "none",
   display: "flex",
-  justifyContent: "space-around",
+  justifyContent: "space-evenly",
   alignItems: "center",
   width: "100%",
+  fontSize: "15px",
 });
 
 const Card = styled.div({
-  width: "300px",
-  height: "300px",
+  width: "270px",
+  height: "270px",
   position: "relative",
   color: "#fff",
+  padding: "20px",
 
   [`:hover ${DisplayOver}`]: {
     backgroundColor: "rgba(0,0,0,.5)",

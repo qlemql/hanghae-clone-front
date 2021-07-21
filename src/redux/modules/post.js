@@ -32,16 +32,22 @@ const getPostDB = (name, img) => {
 
 const getPostDetailDB = (postId) => {
   return function (dispatch, getState, { history }) {
-    console.log(postId);
     api
       .get(`/posts/${postId}`)
       .then((res) => {
-        console.log(res);
         dispatch(getPostDetail(res.data));
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+};
+
+const toggleLikeDB = (postId) => {
+  return function (dispatch, getState, { history }) {
+    api
+      .patch(`/posts/${postId}`, { id: postId })
+      .catch((err) => console.log(err));
   };
 };
 
@@ -64,6 +70,7 @@ const actionCreators = {
   getPost,
   getPostDB,
   getPostDetailDB,
+  toggleLikeDB,
 };
 
 export { actionCreators };

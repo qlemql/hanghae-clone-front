@@ -1,43 +1,96 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as commentActions } from "../redux/modules/comment";
+
 // icon
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import { FaRegComment } from "react-icons/fa";
 import { FiSend } from "react-icons/fi";
-
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
+import { current } from "immer";
+import Input from "../elements/Input";
 function ModalContainer(props) {
+  const dispatch = useDispatch();
   const postData = useSelector((state) => state.post.postData);
-  console.log(postData);
+  const commentList = useSelector((state) => state.comment.list);
+  console.log(commentList);
+
+  const [isLike, setIsLike] = useState(false);
+  const [currentComment, setCurrentComment] = useState("");
+
+  const clickHeart = () => {
+    if (!isLike) {
+      setIsLike(true);
+    } else {
+      setIsLike(false);
+    }
+  };
+
+  const submitComment = (e) => {
+    e.preventDefault();
+    if (currentComment.trim() === "") {
+      window.alert("공백을 제외하고 한 글자 이상 입력해주세요.");
+      return;
+    }
+    const commentObj = {
+      content: currentComment,
+      postId: postData.postId,
+    };
+    dispatch(commentActions.addCommentDB(commentObj));
+    setCurrentComment("");
+  };
+
   return (
     <ModalContainers>
       <ImgContainer>
-        <img src={props.contents_img} alt="content_img" />
+        <img src={`http://15.165.18.118${postData.image}`} alt="content_img" />
       </ImgContainer>
       <ContentContainer>
         <ModalHeader>
           <UserInfo>
             <img src={props.user_img} alt="user_profile" />
-            <div>{props.userNickName}</div>
+            <div>{postData.nickname}</div>
           </UserInfo>
           <UserSet>...</UserSet>
         </ModalHeader>
 
         <ModalContents>
           <UserContents>
-            <img src={props.user_img} alt="user_profile" />
+            <img
+              src={`http://15.165.18.118${postData.image}`}
+              alt="user_profile"
+            />
             <Container>
-              <div>{props.userNickName}</div>
-              <div>코멘트</div>
+              <div>{postData.nickname}</div>
+              <div>{postData.content}</div>
             </Container>
           </UserContents>
+          <div>
+            {commentList.map((c) => (
+              <UserContents>
+                <img src={props.user_img} alt="user_profile" />
+                <Container>
+                  <div>{c.nickname}</div>
+                  <div>{c.content}</div>
+                </Container>
+              </UserContents>
+            ))}
+          </div>
         </ModalContents>
 
         <ModalLikeComment>
           <ModalIcon>
-            <div>
-              <FavoriteBorderIcon style={{ fontSize: 30 }} />
+            <div isLike={isLike}>
+              {isLike ? (
+                <FavoriteIcon style={{ color: "red", fontSize: 30 }} />
+              ) : (
+                <FavoriteBorderIcon
+                  onClick={clickHeart}
+                  style={{ fontSize: 30 }}
+                />
+              )}
             </div>
             <div>
               <FaRegComment />
@@ -49,12 +102,20 @@ function ModalContainer(props) {
               <BookmarkBorderIcon style={{ fontSize: 30 }} />
             </div>
           </ModalIcon>
-          <Like>좋아요 1개</Like>
+          <Like>좋아요 {postData.likeCount}개</Like>
           <div>1일전</div>
         </ModalLikeComment>
 
         <ModalInput>
-          <input type="text" />
+          <Input
+            type="text"
+            value={currentComment}
+            placeholder="댓글 달기..."
+            _onChange={(e) => {
+              setCurrentComment(e.target.value);
+            }}
+          />
+          <button onClick={submitComment}>게시</button>
         </ModalInput>
       </ContentContainer>
     </ModalContainers>
@@ -154,6 +215,7 @@ const Container = styled.div``;
 const ModalContents = styled.div`
   border-bottom: 1px solid rgba(var(--ce3, 239, 239, 239), 1);
   height: 55%;
+  overflow: auto;
 `;
 
 const ModalLikeComment = styled.div`
@@ -171,6 +233,7 @@ const ModalIcon = styled.div`
   align-items: center;
   height: 20px;
   font-size: 30px;
+  cursor: pointer;
 
   div {
     padding: 10px 10px 10px 0px;
@@ -185,7 +248,27 @@ const Like = styled.div`
   font-weight: bold;
 `;
 
-const ModalInput = styled.div``;
+const ModalInput = styled.div`
+  width: 100%;
+  height: auto;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  input {
+    border: none;
+    width: 80%;
+    min-height: 30px;
+    outline: none;
+  }
+  button {
+    border: none;
+    color: #3badf8;
+    background-color: unset;
+    font-size: 16px;
+    cursor: pointer;
+  }
+`;
 
 // const ModalCloseBtn = styled.button`
 //   position: fixed;

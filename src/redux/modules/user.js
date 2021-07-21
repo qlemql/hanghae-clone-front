@@ -1,6 +1,5 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import axios from "axios";
 import { api } from "../../shared/api";
 
 import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
@@ -13,6 +12,7 @@ const setUSER = createAction(SET_USER, (user) => ({ user }));
 
 const initialState = {
   user: {},
+  is_login: false,
 };
 
 const loginDB =
@@ -35,6 +35,7 @@ const loginDB =
             realName: res.data.user.realName,
           })
         );
+        history.push("/");
         const accessToken = "Bearer " + res.data.token;
         setCookie("is_login", `${accessToken}`);
       });
@@ -48,9 +49,9 @@ const loginCheckDB =
       dispatch(
         setUSER({
           token: token,
-          //   createdAt: res.data.user.createdAt,
-          //   nickname: res.data.user.nickname,
-          //   realName: res.data.user.realName,
+          createdAt: res.data.user.createdAt,
+          nickname: res.data.user.nickname,
+          realName: res.data.user.realName,
         })
       );
     });
@@ -69,6 +70,7 @@ const signupDB =
       })
       .then((res) => {
         console.log(res);
+        history.push("/login");
       })
       .catch((err) => {
         console.log(err);
@@ -81,6 +83,7 @@ export default handleActions(
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
         draft.user = action.payload.user;
+        draft.is_login = true;
       }),
   },
   initialState

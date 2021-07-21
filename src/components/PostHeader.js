@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import Modal from "react-modal";
 
 Modal.setAppElement("#root");
 function PostHeader(props) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const userInfo = useSelector((state) => state.user.user);
 
   return (
     <>
@@ -43,13 +45,16 @@ function PostHeader(props) {
           }}
         >
           <ModalTitle>프로필 사진 바꾸기</ModalTitle>
-          <ModalBtn style={{ color: "#0095f6" }}>사진업로드</ModalBtn>
+          <ModalUpLoadBtn>
+            <label for="ex_file">사진업로드</label>
+            <input type="file" id="ex_file"></input>
+          </ModalUpLoadBtn>
           <ModalBtn style={{ color: "#ed4956" }}>현재사진삭제</ModalBtn>
           <ModalBtn onClick={() => setModalIsOpen(false)}>취소</ModalBtn>
         </Modal>
         <Section>
           <UserNickName>
-            <h2>{props.user_info.user_nickname}</h2>
+            <h2>{userInfo.nickname}</h2>
           </UserNickName>
           <UserInfo>
             <li>
@@ -67,7 +72,7 @@ function PostHeader(props) {
             </li>
           </UserInfo>
           <User>
-            <h1>{props.user_info.user_name}</h1>
+            <h1>{userInfo.realName}</h1>
             <span>post name</span>
           </User>
         </Section>
@@ -75,15 +80,15 @@ function PostHeader(props) {
     </>
   );
 }
-// test
+
 PostHeader.defaultProps = {
   user_info: {
     user_name: "TaeHyun",
     user_nickname: "altere_",
     user_img: require("../assets/images/profile.jpg").default,
     user_contents: 240,
-    user_follow: 125,
-    user_follower: 144,
+    user_follow: 0,
+    user_follower: 0,
   },
 };
 
@@ -112,6 +117,35 @@ const ModalTitle = styled.div`
   font-weight: 600;
   margin: 16px 32px;
   line-height: 24px;
+`;
+
+const ModalUpLoadBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 16px;
+  border-top: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  line-height: 1.5;
+  padding: 4px 8px;
+  margin: 0px;
+  min-height: 48px;
+  label {
+    border: none;
+    color: #0095f6;
+    cursor: pointer;
+  }
+  input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
 `;
 
 const ModalBtn = styled.div`
