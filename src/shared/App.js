@@ -7,7 +7,6 @@ import Users from "../pages/Users";
 import Login from "../pages/Login";
 import Posts from "../pages/Posts";
 import Favicon from "react-favicon";
-
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import Navbar from "../components/Navbar";

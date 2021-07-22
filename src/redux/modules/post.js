@@ -1,4 +1,3 @@
-
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { api } from "../../shared/api";
@@ -8,6 +7,7 @@ import {firestore, storage} from "../../shared/firebase";
 import moment from "moment";
 import user from "./user";
 import {actionCreators as imageActions} from "./image"
+import axios from "axios";
 
 // action type
 const GET_POST = "GET_POST";
