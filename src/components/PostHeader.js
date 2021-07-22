@@ -58,28 +58,24 @@ function PostHeader(props) {
           <ModalBtn onClick={() => setModalIsOpen(false)}>취소</ModalBtn>
         </Modal>
         <Section>
-          <UserNickName>
+          {/* <UserNickName>
             <h2>{userInfo.nickname}</h2>
-          </UserNickName>
+          </UserNickName> */}
           <UserInfo>
             <li>
               게시물 <span>{myPostList.length}</span>
             </li>
             <li>
-              <a href="/">
-                팔로워 <span>{props.user_info.user_follower}</span>
-              </a>
+              팔로워 <span>{props.user_info.user_follower}</span>
             </li>
             <li>
-              <a href="/">
-                팔로우 <span>{props.user_info.user_follow}</span>
-              </a>
+              팔로우 <span>{props.user_info.user_follow}</span>
             </li>
           </UserInfo>
-          <User>
+          {/* <User>
             <h1>{userInfo.realName}</h1>
             <span>post name</span>
-          </User>
+          </User> */}
         </Section>
       </Header>
     </>
@@ -108,11 +104,9 @@ const Header = styled.div`
 `;
 
 const Btn = styled.button`
-  flex-grow: 1;
-  flex-basis: 0;
   border: none;
   background-color: unset;
-  margin-right: 30px;
+  margin-left: 50px;
 `;
 
 const ModalTitle = styled.div`
@@ -180,10 +174,19 @@ const ImgBox = styled.div`
 const Section = styled.section`
   flex-grow: 2;
   flex-basis: 30px;
+  ul {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
   li {
+    font-size: 18px;
     margin-right: 20px;
     margin-bottom: 20px;
     list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
@@ -199,7 +202,7 @@ const UserInfo = styled.ul`
   padding: 0px;
   display: flex;
   font-size: 16px;
-  justify-content: flex-start;
+  justify-content: center;
   span {
     font-weight: 600;
   }

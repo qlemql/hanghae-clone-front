@@ -59,6 +59,8 @@ function ModalContainer(props) {
     dispatch(postActions.deletePostDB(postId));
   };
 
+  console.log(modalIsOpen);
+
   return (
     <ModalContainers>
       <ImgContainer>
@@ -72,7 +74,7 @@ function ModalContainer(props) {
           </UserInfo>
           <UserSet
             onClick={() => {
-              setModalIsOpen(true);
+              setModalIsOpen({ type: "post", id: postData.postId });
             }}
           >
             ...
@@ -95,7 +97,7 @@ function ModalContainer(props) {
               <UserContents
                 key={c.postId}
                 onClick={() => {
-                  setModalIsOpen(true);
+                  setModalIsOpen({ type: "comment", id: c.commentId });
                 }}
               >
                 <img src={props.user_img} alt="user_profile" />
@@ -132,7 +134,14 @@ function ModalContainer(props) {
             >
               <ModalBtnOne
                 style={{ color: "#ed4956" }}
-                onClick={deleteComment(postData.postId)}
+                onClick={() => {
+                  if (modalIsOpen.type === "comment") {
+                    deleteComment(postData.postId);
+                  }
+                  if (modalIsOpen.type === "post") {
+                    deletePost(postData.postId);
+                  }
+                }}
               >
                 삭제
               </ModalBtnOne>
@@ -164,7 +173,7 @@ function ModalContainer(props) {
             </div>
           </ModalIcon>
           <Like>좋아요 {postData.likeCount}개</Like>
-          <div>1일전</div>
+          {/* <div>1일전</div> */}
         </ModalLikeComment>
 
         <ModalInput>

@@ -46,10 +46,10 @@ const deleteCommentDB =
   (postId, commentId) =>
   (dispatch, getState, { history }) => {
     console.log(postId);
-    // api
-    //   .delete(`/posts/${postId}/comments/${commentId}`)
-    //   .then((res) => dispatch(postId, commentId))
-    //   .catch((err) => console.log(err));
+    api
+      .delete(`/posts/${postId}/comments/${commentId}`)
+      .then((res) => dispatch(postId, commentId))
+      .catch((err) => console.log(err));
   };
 
 export default handleActions(

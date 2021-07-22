@@ -58,7 +58,7 @@ const deletePostDB =
   (dispatch, getState, { history }) => {
     api
       .delete(`/posts/${postId}`)
-      .then((res) => dispatch(deletePost(postId)))
+      .then((res) => history.push("/"), dispatch(deletePost(postId)))
       .catch((err) => console.log(err));
   };
 
