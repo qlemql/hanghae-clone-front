@@ -5,6 +5,8 @@ import Modal from "react-modal";
 
 Modal.setAppElement("#root");
 function PostHeader(props) {
+  const myPostList = useSelector((state) => state.post.list);
+  console.log(myPostList);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const userInfo = useSelector((state) => state.user.user);
@@ -58,7 +60,7 @@ function PostHeader(props) {
           </UserNickName>
           <UserInfo>
             <li>
-              게시물 <span>{props.user_info.user_contents}</span>
+              게시물 <span>{myPostList.length}</span>
             </li>
             <li>
               <a href="/">

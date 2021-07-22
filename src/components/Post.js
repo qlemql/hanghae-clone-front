@@ -14,17 +14,19 @@ import { FaComment } from "react-icons/fa";
 function Post(props) {
   // 모달 상태
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const userInfo = useSelector((state) => state.user.user);
 
   const dispatch = useDispatch();
 
   // 페이지 리랜더링할때마다 post정보 가져오기
   React.useEffect(() => {
-    dispatch(postActions.getPostDB());
+    dispatch(postActions.getPostDB(userInfo.nickname));
+    // nickname
   }, []);
 
   // post정보와 가져와서 화면에 보여주기
   const myPostList = useSelector((state) => state.post.list);
-  console.log(myPostList);
+  console.log(myPostList.length);
 
   // 게시글 클릭시 해당 게시글 detail정보 가져오는 함수
   const getDetail = (postId) => {

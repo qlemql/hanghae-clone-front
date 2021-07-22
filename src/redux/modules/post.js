@@ -1,6 +1,5 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import axios from "axios";
 import { api } from "../../shared/api";
 
 // action type
@@ -21,9 +20,9 @@ const initialState = {
 };
 
 // thunk
-const getPostDB = (name, img) => {
+const getPostDB = (nickname) => {
   return function (dispatch, getState, { history }) {
-    axios.get("http://15.165.18.118/posts").then((res) => {
+    api.get(`/posts?nickname=${nickname}`).then((res) => {
       console.log(res.data);
       dispatch(getPost(res.data));
     });
