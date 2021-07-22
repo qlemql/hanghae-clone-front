@@ -1,68 +1,95 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useState } from "react";
-import Modal from "./Modal";
+import { useSelector } from "react-redux";
+import Modal from "react-modal";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
+Modal.setAppElement("#root");
 function PostHeader(props) {
-  const [isShowing, setIsShowing] = useState(false);
+  const myPostList = useSelector((state) => state.post.list);
+  console.log(myPostList);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const openModal = () => {
-    setIsShowing(true);
-  };
-
-  const closeModal = () => {
-    setIsShowing(false);
-  };
+  const userInfo = useSelector((state) => state.user.user);
 
   return (
     <>
       <Header>
-        <Btn onClick={openModal}>
-          {/* <Img src={props.user_info.user_img} /> */}
+        <Btn
+          onClick={() => {
+            setModalIsOpen(true);
+          }}
+        >
+          <ImgBox>
+            <AccountCircleIcon style={{ fontSize: 150 }} />
+          </ImgBox>
         </Btn>
-        {/* modal 수정해야함 */}
-        <div>
-          {isShowing && (
-            <Modal
-              open={openModal}
-              close={closeModal}
-              header="프로필 사진 바꾸기"
-            />
-          )}
-        </div>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={() => setModalIsOpen(false)}
+          style={{
+            overlay: {
+              backgroundColor: "rgba(0,0,0,0.5)",
+              zIndex: "1000",
+            },
+            content: {
+              top: "50%",
+              left: "50%",
+              right: "auto",
+              bottom: "auto",
+              marginRight: "-50%",
+              transform: "translate(-50%, -50%)",
+              width: "400px",
+              height: "220px",
+              padding: "0px",
+              borderRadius: "12px",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+            },
+          }}
+        >
+          <ModalTitle>프로필 사진 바꾸기</ModalTitle>
+          <ModalUpLoadBtn>
+            <label for="ex_file">사진업로드</label>
+            <input type="file" id="ex_file"></input>
+          </ModalUpLoadBtn>
+          <ModalBtn style={{ color: "#ed4956" }}>현재사진삭제</ModalBtn>
+          <ModalBtn onClick={() => setModalIsOpen(false)}>취소</ModalBtn>
+        </Modal>
         <Section>
-          <div>
-            <h2>{props.user_info.user_nickname}</h2>
-          </div>
+          {/* <UserNickName>
+            <h2>{userInfo.nickname}</h2>
+          </UserNickName> */}
           <UserInfo>
             <li>
-              <span>게시물 {props.user_info.user_contents}</span>
+              게시물 <span>{myPostList.length}</span>
             </li>
             <li>
-              <a href="/">팔로워 {props.user_info.user_follower}</a>
+              팔로워 <span>{props.user_info.user_follower}</span>
             </li>
             <li>
-              <a href="/">팔로우 {props.user_info.user_follow}</a>
+              팔로우 <span>{props.user_info.user_follow}</span>
             </li>
           </UserInfo>
-          <div>
-            <h1>{props.user_info.user_name}</h1>
+          {/* <User>
+            <h1>{userInfo.realName}</h1>
             <span>post name</span>
-          </div>
+          </User> */}
         </Section>
       </Header>
     </>
   );
 }
-// test
+
 PostHeader.defaultProps = {
   user_info: {
     user_name: "TaeHyun",
     user_nickname: "altere_",
     user_img: require("../assets/images/profile.jpg").default,
     user_contents: 240,
-    user_follow: 125,
-    user_follower: 144,
+    user_follow: 0,
+    user_follower: 0,
   },
 };
 
@@ -71,40 +98,122 @@ const Header = styled.div`
   max-width: 800px;
   height: 100%;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  margin: 0 auto;
+  margin: 0 5%;
+  margin-bottom: 44px;
 `;
 
 const Btn = styled.button`
   border: none;
-  background-color: #fff;
-  margin-right: 100px;
+  background-color: unset;
+  margin-left: 50px;
 `;
 
-const Img = styled.img`
+const ModalTitle = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 16px 32px;
+  line-height: 24px;
+`;
+
+const ModalUpLoadBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 16px;
+  border-top: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  line-height: 1.5;
+  padding: 4px 8px;
+  margin: 0px;
+  min-height: 48px;
+  label {
+    border: none;
+    color: #0095f6;
+    cursor: pointer;
+  }
+  input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+`;
+
+const ModalBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 16px;
+  border-top: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  cursor: pointer;
+  line-height: 1.5;
+  padding: 4px 8px;
+  margin: 0px;
+  min-height: 48px;
+`;
+
+const ImgBox = styled.div`
   border-radius: 50%;
   border: none;
   width: 150px;
   height: 150px;
-  background-image: url("${(props) => props.user_img}");
-  background-size: cover;
-  background-position: center;
+  font-size: 150px;
+  color: gray;
 `;
 
 const Section = styled.section`
-  width: 100%;
-  li {
-    margin-right: 20px;
-    list-style: none;
+  flex-grow: 2;
+  flex-basis: 30px;
+  ul {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
   }
+  li {
+    font-size: 18px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+const UserNickName = styled.div`
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 32px;
 `;
 
 const UserInfo = styled.ul`
   width: 100%;
   padding: 0px;
   display: flex;
-  justify-content: flex-start;
+  font-size: 16px;
+  justify-content: center;
+  span {
+    font-weight: 600;
+  }
+`;
+
+const User = styled.div`
+  font-weight: 600;
+  span {
+    font-size: 16px;
+    font-weight: 300;
+  }
 `;
 
 export default PostHeader;
