@@ -6,9 +6,9 @@ import PostList from "../pages/PostList";
 import Users from "../pages/Users";
 import Login from "../pages/Login";
 import Posts from "../pages/Posts";
-import {useDispatch, useSelector} from "react-redux";
-import {actionCreators as userActions} from "../redux/modules/user";
 import Favicon from "react-favicon";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
 import Navbar from "../components/Navbar";
 
 const App = () => {
@@ -22,13 +22,12 @@ const App = () => {
 
   if (!is_login) {
     return (
-
       <ConnectedRouter history={history}>
         <Favicon url="img/2000px-instagram_logo_2016svg-2000x2000.png" />
         <Navbar />
         <Route path="/login/" exact component={Login}></Route>
         <Route path="/users/" exact component={Users}></Route>
-        <Redirect to="/login" />
+        {/* <Redirect to="/login" /> */}
       </ConnectedRouter>
     );
   }
@@ -41,6 +40,7 @@ const App = () => {
         <Route path="/" exact component={PostList} />
         <Route path="/login/" exact component={Login}></Route>
         <Route path="/users/" exact component={Users}></Route>
+        <Route path="/posts/" exact component={Posts}></Route>
       </ConnectedRouter>
     </>
   );

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import Modal from "react-modal";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import AWS from "aws-sdk";
 
 Modal.setAppElement("#root");
 function PostHeader(props) {
@@ -12,6 +13,41 @@ function PostHeader(props) {
 
   const userInfo = useSelector((state) => state.user.user);
 
+  const imgRef = useRef(null);
+
+  AWS.config.update({
+    region: "ap-northeast-2", // 버킷이 존재하는 리전을 문자열로 입력합니다. (Ex. "ap-northeast-2")
+    credentials: new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: "ap-northeast-2:33058db0-ec41-4d9b-a944-96abf751b882",
+    }),
+  });
+
+  const fileInput = React.useRef();
+  const uploading = useSelector((state) => state.image.uploading);
+
+  const selectFile = () => {
+    const reader = new FileReader();
+    const file = fileInput.current.files[0];
+    reader.readAsDataURL(file);
+    const upload = new AWS.S3.ManagedUpload({
+      params: {
+        Bucket: "s3imagehyun", // 업로드할 대상 버킷명
+        Key: file.name + ".jpg", // 업로드할 파일명 (* 확장자를 추가해야 합니다!)
+        Body: file, // 업로드할 파일 객체
+      },
+    });
+
+    const promise = upload.promise();
+    promise.then(
+      function (data) {
+        alert("이미지 업로드에 성공했습니다.");
+      },
+      function (err) {
+        return alert("오류가 발생했습니다: ", err.message);
+      }
+    );
+  };
+
   return (
     <>
       <Header>
@@ -20,9 +56,14 @@ function PostHeader(props) {
             setModalIsOpen(true);
           }}
         >
-          <ImgBox>
-            <AccountCircleIcon style={{ fontSize: 150 }} />
-          </ImgBox>
+          {/* <Img
+            src={`https://s3imagehyun.s3.ap-northeast-2.amazonaws.com/[파일명].jpg`}
+            onError={() => {
+              return (imgRef.current.src =
+                "https://sincerely.one/common/img/default_profile.png");
+            }}
+          /> */}
+          <AccountCircleIcon style={{ fontSize: 150 }} />
         </Btn>
         <Modal
           isOpen={modalIsOpen}
@@ -52,7 +93,12 @@ function PostHeader(props) {
           <ModalTitle>프로필 사진 바꾸기</ModalTitle>
           <ModalUpLoadBtn>
             <label for="ex_file">사진업로드</label>
-            <input type="file" id="ex_file"></input>
+            <input
+              ref={fileInput}
+              onChange={selectFile}
+              type="file"
+              id="ex_file"
+            ></input>
           </ModalUpLoadBtn>
           <ModalBtn style={{ color: "#ed4956" }}>현재사진삭제</ModalBtn>
           <ModalBtn onClick={() => setModalIsOpen(false)}>취소</ModalBtn>
@@ -162,13 +208,14 @@ const ModalBtn = styled.div`
   min-height: 48px;
 `;
 
-const ImgBox = styled.div`
+const Img = styled.img`
   border-radius: 50%;
   border: none;
   width: 150px;
   height: 150px;
-  font-size: 150px;
-  color: gray;
+  background-image: url("${(props) => props.user_img}");
+  background-size: cover;
+  background-position: center;
 `;
 
 const Section = styled.section`
