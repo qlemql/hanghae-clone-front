@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import PostList from "../pages/PostList";
 import Users from "../pages/Users";
 import Login from "../pages/Login";
+import Posts from "../pages/Posts";
 import Favicon from 'react-favicon'
 
 
@@ -28,6 +29,7 @@ const App = () => {
                 <Route path="/" exact component={PostList}/>
                 <Route path="/login/" component={Login}></Route>
                 <Route path="/users/" component={Users}></Route>
+                <Route path="/posts/" component={Posts}></Route>
             </ConnectedRouter>
         </>
     );

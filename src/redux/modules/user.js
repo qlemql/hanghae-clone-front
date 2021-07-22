@@ -2,14 +2,11 @@ import {createAction, handleActions} from "redux-actions";
 import {produce} from "immer";
 import axios from "axios";
 import {api} from "../../shared/api";
-
 import {setCookie, getCookie, deleteCookie} from "../../shared/Cookie";
 
 
-// action type
 const SET_USER = "user/SET_USER";
 
-// action create function
 const setUSER = createAction(SET_USER, (user) => ({user}));
 
 const initialState = {
@@ -17,6 +14,7 @@ const initialState = {
 };
 
 
+// Middleware
 const loginDB =
     (setEmail, setPassword) =>
         async (dispatch, getState, {history}) => {
