@@ -45,7 +45,7 @@ const getCommentDB = (postId) => {
 const deleteCommentDB =
   (postId, commentId) =>
   (dispatch, getState, { history }) => {
-    console.log(postId);
+    console.log(postId, commentId);
     api
       .delete(`/posts/${postId}/comments/${commentId}`)
       .then((res) => dispatch(postId, commentId))

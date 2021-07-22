@@ -23,9 +23,11 @@ const App = () => {
   if (!is_login) {
     return (
       <ConnectedRouter history={history}>
+        <Favicon url="img/2000px-instagram_logo_2016svg-2000x2000.png" />
         <Navbar />
         <Route path="/login/" exact component={Login}></Route>
         <Route path="/users/" exact component={Users}></Route>
+        <Redirect to="/login" />
       </ConnectedRouter>
     );
   }

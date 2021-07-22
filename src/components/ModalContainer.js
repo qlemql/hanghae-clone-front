@@ -5,6 +5,7 @@ import { actionCreators as commentActions } from "../redux/modules/comment";
 import { actionCreators as postActions } from "../redux/modules/post";
 import Modal from "react-modal";
 import Input from "../elements/Input";
+import { history } from "../redux/configStore";
 
 // icon
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -60,6 +61,7 @@ function ModalContainer(props) {
   };
 
   console.log(modalIsOpen);
+  console.log(modalIsOpen.id);
 
   return (
     <ModalContainers>
@@ -136,10 +138,12 @@ function ModalContainer(props) {
                 style={{ color: "#ed4956" }}
                 onClick={() => {
                   if (modalIsOpen.type === "comment") {
-                    deleteComment(postData.postId);
+                    deleteComment(postData.postId, modalIsOpen.id);
+                    history.replace("/");
                   }
                   if (modalIsOpen.type === "post") {
                     deletePost(postData.postId);
+                    history.replace("/");
                   }
                 }}
               >

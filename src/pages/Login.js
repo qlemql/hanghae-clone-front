@@ -5,6 +5,7 @@ import { Input, Button, Footer } from "../elements";
 import Navbar from "../components/Navbar";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
+import { history } from "../redux/configStore";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -53,7 +54,8 @@ const Login = (props) => {
               </a>
               <a className="password-reset">비밀번호를 잊으셨나요?</a>
               <div className="sign-up">
-                계정이 없으신가요? <a href="/users">가입하기</a>
+                계정이 없으신가요?{" "}
+                <a onClick={() => history.push("/users")}>가입하기</a>
               </div>
             </Form>
 
