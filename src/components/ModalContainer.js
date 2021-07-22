@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as commentActions } from "../redux/modules/comment";
+import { actionCreators as postActions } from "../redux/modules/post";
+import Modal from "react-modal";
+import Input from "../elements/Input";
 
 // icon
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -9,15 +12,21 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import { FaRegComment } from "react-icons/fa";
 import { FiSend } from "react-icons/fi";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
-import { current } from "immer";
-import Input from "../elements/Input";
+
 function ModalContainer(props) {
+  // modal
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const dispatch = useDispatch();
+  // postdata
   const postData = useSelector((state) => state.post.postData);
+  // comment list
   const commentList = useSelector((state) => state.comment.list);
   console.log(commentList);
+  console.log(commentList[1]);
 
+  // like
   const [isLike, setIsLike] = useState(false);
+  // comment
   const [currentComment, setCurrentComment] = useState("");
 
   const clickHeart = () => {
@@ -42,6 +51,14 @@ function ModalContainer(props) {
     setCurrentComment("");
   };
 
+  const deleteComment = (postId) => {
+    dispatch(commentActions.deleteCommentDB(postId));
+  };
+
+  const deletePost = (postId) => {
+    dispatch(postActions.deletePostDB(postId));
+  };
+
   return (
     <ModalContainers>
       <ImgContainer>
@@ -53,7 +70,13 @@ function ModalContainer(props) {
             <img src={props.user_img} alt="user_profile" />
             <div>{postData.nickname}</div>
           </UserInfo>
-          <UserSet>...</UserSet>
+          <UserSet
+            onClick={() => {
+              setModalIsOpen(true);
+            }}
+          >
+            ...
+          </UserSet>
         </ModalHeader>
 
         <ModalContents>
@@ -69,7 +92,12 @@ function ModalContainer(props) {
           </UserContents>
           <div>
             {commentList.map((c) => (
-              <UserContents>
+              <UserContents
+                key={c.postId}
+                onClick={() => {
+                  setModalIsOpen(true);
+                }}
+              >
                 <img src={props.user_img} alt="user_profile" />
                 <Container>
                   <div>{c.nickname}</div>
@@ -77,6 +105,39 @@ function ModalContainer(props) {
                 </Container>
               </UserContents>
             ))}
+            <Modal
+              onRequestClose={() => setModalIsOpen(false)}
+              isOpen={modalIsOpen}
+              style={{
+                overlay: {
+                  backgroundColor: "rgba(0,0,0,0.5)",
+                  zIndex: "1000",
+                },
+                content: {
+                  top: "50%",
+                  left: "50%",
+                  right: "auto",
+                  bottom: "auto",
+                  marginRight: "-50%",
+                  transform: "translate(-50%, -50%)",
+                  width: "400px",
+                  height: "220px",
+                  padding: "0px",
+                  borderRadius: "12px",
+                  display: "flex",
+                  justifyContent: "center",
+                  flexDirection: "column",
+                },
+              }}
+            >
+              <ModalBtnOne
+                style={{ color: "#ed4956" }}
+                onClick={deleteComment(postData.postId)}
+              >
+                삭제
+              </ModalBtnOne>
+              <ModalBtn onClick={() => setModalIsOpen(false)}>취소</ModalBtn>
+            </Modal>
           </div>
         </ModalContents>
 
@@ -190,6 +251,7 @@ const UserContents = styled.div`
   display: flex;
   align-items: center;
   padding: 10px;
+  cursor: pointer;
   div {
     font-weight: bold;
     font-size: 14px;
@@ -268,6 +330,36 @@ const ModalInput = styled.div`
     font-size: 16px;
     cursor: pointer;
   }
+`;
+const ModalBtnOne = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 16px;
+  border-top: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  cursor: pointer;
+  line-height: 1.5;
+  padding: 4px 8px;
+  margin: 0px;
+  min-height: 48px;
+`;
+
+const ModalBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 16px;
+  border-top: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  cursor: pointer;
+  line-height: 1.5;
+  padding: 4px 8px;
+  margin: 0px;
+  min-height: 48px;
 `;
 
 // const ModalCloseBtn = styled.button`

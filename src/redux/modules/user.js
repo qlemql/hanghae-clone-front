@@ -6,9 +6,11 @@ import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
 
 // action type
 const SET_USER = "user/SET_USER";
+const LOG_OUT = "LOG_OUT";
 
 // action create function
 const setUSER = createAction(SET_USER, (user) => ({ user }));
+const logOut = createAction(LOG_OUT, (user) => ({ user }));
 
 const initialState = {
   user: {},
@@ -77,6 +79,14 @@ const signupDB =
       });
   };
 
+const logOutDB = () => {
+  return function (dispatch, getState, { history }) {
+    dispatch(logOut());
+    window.alert("로그아웃 되었습니다.");
+    history.replace("/login");
+  };
+};
+
 // Reducer
 export default handleActions(
   {
@@ -84,6 +94,12 @@ export default handleActions(
       produce(state, (draft) => {
         draft.user = action.payload.user;
         draft.is_login = true;
+      }),
+    [LOG_OUT]: (state, action) =>
+      produce(state, (draft) => {
+        deleteCookie("is_login");
+        draft.user = {};
+        draft.is_login = false;
       }),
   },
   initialState
@@ -93,6 +109,7 @@ const actionCreators = {
   loginDB,
   loginCheckDB,
   signupDB,
+  logOutDB,
 };
 
 export { actionCreators };

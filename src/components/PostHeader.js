@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import Modal from "react-modal";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 Modal.setAppElement("#root");
 function PostHeader(props) {
@@ -19,7 +20,9 @@ function PostHeader(props) {
             setModalIsOpen(true);
           }}
         >
-          <Img src={props.user_info.user_img} />
+          <ImgBox>
+            <AccountCircleIcon style={{ fontSize: 150 }} />
+          </ImgBox>
         </Btn>
         <Modal
           isOpen={modalIsOpen}
@@ -165,14 +168,13 @@ const ModalBtn = styled.div`
   min-height: 48px;
 `;
 
-const Img = styled.img`
+const ImgBox = styled.div`
   border-radius: 50%;
   border: none;
   width: 150px;
   height: 150px;
-  background-image: url("${(props) => props.user_img}");
-  background-size: cover;
-  background-position: center;
+  font-size: 150px;
+  color: gray;
 `;
 
 const Section = styled.section`
