@@ -66,53 +66,57 @@ const getPostDetailDB = (postId) => {
   };
 };
 
-const addPostFB = (contents = "") => {
-    return function (dispatch, getState, {history}) {
-        const postDB = firestore.collection("post");
-        const _user = getState().user.user;
-        const user_info = {
-            user_name: _user.user_name,
-            user_id: _user.uid,
-            user_profile: _user.user_profile,
-        };
-        const _post = {
-            ...initialPost,
-            contents: contents,
-            insert_dt: moment().format("YYYY-MM_DD hh:mm:ss"),
-        };
+// const addPostFB = (contents = "") => {
+//     return function (dispatch, getState, {history}) {
+//         const postDB = firestore.collection("post");
+//         const _user = getState().user.user;
+//         const user_info = {
+//             user_name: _user.user_name,
+//             user_id: _user.uid,
+//             user_profile: _user.user_profile,
+//         };
+//         const _post = {
+//             ...initialPost,
+//             contents: contents,
+//             insert_dt: moment().format("YYYY-MM_DD hh:mm:ss"),
+//         };
 
-        const _image = getState().image.preview;
+//         const _image = getState().image.preview;
 
-        const _upload = storage
-            .ref(`images/${user_info.user_id}_${new Date().getTime()}`)
-            .putString(_image, "data_url");
+//         const _upload = storage
+//             .ref(`images/${user_info.user_id}_${new Date().getTime()}`)
+//             .putString(_image, "data_url");
 
-        _upload.then(snapshot => {
-            snapshot.ref.getDownloadURL().then(url => {
-                console.log(url);
-                return url;
-            }).then(url => {
-                postDB
-                    .add({...user_info, ..._post, _image_url: url})
-                    .then((doc) => {
+//         _upload.then(snapshot => {
+//             snapshot.ref.getDownloadURL().then(url => {
+//                 console.log(url);
+//                 return url;
+//             }).then(url => {
+//                 postDB
+//                     .add({...user_info, ..._post, _image_url: url})
+//                     .then((doc) => {
 
-                        let post = {user_info, ..._post, id: doc.id, image_url: url};
-                        dispatch(addPost(post));
-                        history.replace('/')
+//                         let post = {user_info, ..._post, id: doc.id, image_url: url};
+//                         dispatch(addPost(post));
+//                         history.replace('/')
 
-                        dispatch(imageActions.setPreview(null));
+//                         dispatch(imageActions.setPreview(null));
 
-                    })
-                    .catch((err) => {
-                        console.log("post 실패", err);
-                    });
-            }).catch((err) => {
-                window.alert("업로드 실패")
-                console.log(err);
-            })
-        });
+//                     })
+//                     .catch((err) => {
+//                         console.log("post 실패", err);
+//                     });
+//             }).catch((err) => {
+//                 window.alert("업로드 실패")
+//                 console.log(err);
+//             })
+//         });
 
-    }
+//     }
+// }
+
+const ImgDB = () => async() => {
+  await api.post()
 }
 
 const toggleLikeDB = (postId) => {

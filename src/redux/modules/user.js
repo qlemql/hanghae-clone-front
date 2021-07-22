@@ -1,15 +1,11 @@
-import {createAction, handleActions} from "redux-actions";
-import {produce} from "immer";
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
 import axios from "axios";
-import {api} from "../../shared/api";
-import {setCookie, getCookie, deleteCookie} from "../../shared/Cookie";
-
-
+import { api } from "../../shared/api";
 import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
 
 const SET_USER = "user/SET_USER";
 const LOG_OUT = "LOG_OUT";
-
 
 // action create function
 const setUSER = createAction(SET_USER, (user) => ({ user }));
@@ -19,8 +15,6 @@ const initialState = {
   user: {},
   is_login: false,
 };
-
-
 
 // Middleware
 
