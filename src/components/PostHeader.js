@@ -18,7 +18,7 @@ function PostHeader(props) {
   AWS.config.update({
     region: "ap-northeast-2", // 버킷이 존재하는 리전을 문자열로 입력합니다. (Ex. "ap-northeast-2")
     credentials: new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: "ap-northeast-2:33058db0-ec41-4d9b-a944-96abf751b882",
+      IdentityPoolId: "",
     }),
   });
 
